@@ -1,4 +1,4 @@
-from flaskr import create_app
+from backend import create_app
 from flask_restful import Api
 from .modelos import db
 from .vistas import VistaCanciones, VistaCancion, VistaSignIn, VistaAlbum, VistaAlbumsUsuario, VistaCancionesAlbum, VistaLogIn, VistaAlbumesCanciones
