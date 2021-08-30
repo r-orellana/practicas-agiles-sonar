@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { AlbumEditComponent } from './album-edit.component';
 
-describe('AlbumEditComponent', () => {
+xdescribe('AlbumEditComponent', () => {
   let component: AlbumEditComponent;
   let fixture: ComponentFixture<AlbumEditComponent>;
 

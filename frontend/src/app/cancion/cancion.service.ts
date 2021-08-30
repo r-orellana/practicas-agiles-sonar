@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Cancion } from './cancion';
 import { Album } from '../album/album';
 
@@ -9,13 +10,13 @@ import { Album } from '../album/album';
 })
 export class CancionService {
 
-  private backUrl: string = "http://localhost:5000"
+  private backUrl: string = environment.baseUrl
 
   constructor(private http: HttpClient) { }
 
   getCancionesAlbum(idAlbum: number, token: string): Observable<Cancion[]>{
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`       
+      'Authorization': `Bearer ${token}`
     })
     return this.http.get<Cancion[]>(`${this.backUrl}/album/${idAlbum}/canciones`, {headers: headers})
   }

@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { UsuarioSignupComponent } from './usuario-signup.component';
 
-describe('UsuarioSignupComponent', () => {
+xdescribe('UsuarioSignupComponent', () => {
   let component: UsuarioSignupComponent;
   let fixture: ComponentFixture<UsuarioSignupComponent>;
 

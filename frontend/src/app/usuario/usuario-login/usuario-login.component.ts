@@ -17,15 +17,16 @@ export class UsuarioLoginComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router
     ) { }
-  
+
   error: boolean = false
 
   ngOnInit() {
+    return;
   }
 
   onLogInUsuario(nombre: string, contrasena: string){
     this.error = false
-    
+
     this.usuarioService.userLogIn(nombre, contrasena)
     .subscribe(res => {
       const decodedToken = this.helper.decodeToken(res.token);

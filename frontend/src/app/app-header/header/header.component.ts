@@ -13,7 +13,9 @@ export class HeaderComponent implements OnInit {
     private router: ActivatedRoute
     ) { }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    return;
+  }
 
   goTo(menu: string){
     const userId = parseInt(this.router.snapshot.params.userId)
