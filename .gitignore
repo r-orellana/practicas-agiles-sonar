@@ -144,4 +144,4 @@ cython_debug/
 .vscode
 
 #DataBase
-test.db
+*.db

@@ -6,7 +6,7 @@ def create_app(config_dict: Dict = {}):
     app = Flask(__name__)
     app.config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = f'sqlite:///{config_dict.get("DATABASE", "tutorial_canciones")}.db'
+    ] = f'sqlite:///{config_dict.get("DATABASE", "ionic")}.db'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["JWT_SECRET_KEY"] = "frase-secreta"
     app.config["PROPAGATE_EXCEPTIONS"] = True

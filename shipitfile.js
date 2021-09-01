@@ -1,6 +1,5 @@
 module.exports = (shipit) => {
     require("shipit-deploy")(shipit);
-    require("shipit-shared")(shipit);
   
     shipit.initConfig({
       default: {
@@ -9,10 +8,6 @@ module.exports = (shipit) => {
         keepReleases: 2,
         shallowClone: true,
         copy: false,
-        shared: {
-          overwrite: true,
-          files: ["backend/tutorial_canciones.db"]
-        }
       },
       staging: {
         servers: "ubuntu@staging.javoweb.io",
