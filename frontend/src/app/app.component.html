@@ -1,1 +1,87 @@
-<router-outlet></router-outlet>
+<div class="d-flex w-100 h-100" id="wrapper">
+  <!-- Sidebar-->
+  <div class="border-end bg-white h-100" id="sidebar-wrapper">
+    <div class="sidebar-heading border-bottom list-group-item-info">
+      <a class="navbar-brand mx-3" routerLink="/"
+        ><img
+          class="img-fluid w-25 py-1"
+          src="assets/img/logo/IonicLogo.png"
+          alt="Ionic App Logo"
+      /></a>
+    </div>
+    <div
+      class="list-group list-group-flush list-group-item-info  sticky-top"
+      style="min-height: calc(100vh - 150px)"
+    >
+      <div
+        class="
+          list-group-item list-group-item-action list-group-item-info
+          p-3
+          btn
+        "
+        (click)="goTo('cancion')"
+      >
+        Home
+      </div>
+      <div
+        class="
+          list-group-item list-group-item-action list-group-item-info
+          p-3
+          btn
+        "
+        (click)="goTo('album')"
+      >
+        Albumes
+      </div>
+      <div
+        class="
+          list-group-item list-group-item-action list-group-item-info
+          p-3
+          btn
+        "
+        (click)="goTo('cancion')"
+      >
+        Canciones
+      </div>
+      <div
+        class="
+          list-group-item list-group-item-action list-group-item-info
+          p-3
+          btn
+        "
+        (click)="goTo('about')"
+      >
+        Acerca de nosotros
+      </div>
+      <div class="dropdown-divider mt-5"></div>
+      <div
+        class="
+          list-group-item list-group-item-action list-group-item-info
+          p-3
+          mt-5
+          btn
+        "
+        (click)="goTo('logIn')"
+      >
+        Salir
+      </div>
+    </div>
+  </div>
+  <!-- Page content wrapper-->
+  <div class="w-100" id="page-content-wrapper">
+    <!-- Top navigation-->
+
+    <app-header
+      class="sticky-top"
+      [handleToggleMenu]="toggleMenuHandler"
+    ></app-header>
+
+    <!-- Page content-->
+    <div class="container-fluid min-h-100 p-0">
+      <div class="w-100" style="overflow-y: auto;overflow-x: auto;height: calc(100vh - 219px);">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

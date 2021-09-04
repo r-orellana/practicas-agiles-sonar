@@ -30,21 +30,27 @@ export class UsuarioSignupComponent implements OnInit {
       password: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]],
       confirmPassword: ["", [Validators.required, Validators.maxLength(50), Validators.minLength(4)]]
     })
+    document.getElementById('sidebar-wrapper')?.classList.add('sb-sidenav-toggled')
+    document.getElementById('sidebarToggle')?.classList.add('sb-sidenav-toggled')
   }
 
-  registrarUsuario(){  
+  registrarUsuario() {
     this.usuarioService.userSignUp(this.usuarioForm.get('nombre')?.value, this.usuarioForm.get('password')?.value)
-    .subscribe(res => {
-      const decodedToken = this.helper.decodeToken(res.token);
-      this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`])
-      this.showSuccess()
-    },
-    error => {
-      this.showError(`Ha ocurrido un error: ${error.message}`)
-    })
+      .subscribe(res => {
+        const decodedToken = this.helper.decodeToken(res.token);
+        this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`])
+        localStorage.setItem('authToken', res.token);
+        localStorage.setItem('userId', decodedToken.sub);
+        document.getElementById('sidebar-wrapper')?.classList.remove('sb-sidenav-toggled')
+        document.getElementById('sidebarToggle')?.classList.remove('sb-sidenav-toggled')
+        this.showSuccess()
+      },
+        error => {
+          this.showError(`Ha ocurrido un error: ${error.message}`)
+        })
   }
 
-  showError(error: string){
+  showError(error: string) {
     this.toastr.error(error, "Error")
   }
 

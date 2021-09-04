@@ -1,7 +1,6 @@
-<app-header></app-header>
 <div class="container my-4">
     <div class="row">
-      <div class="col-4">
+      <div class="col-xs-12 col-lg-4">
         <div class="card">
           <div class="card-header">
             <div class="row">
@@ -19,11 +18,11 @@
               <input #busqueda type="search" class="form-control" placeholder="Buscar canciones" aria-label="Search" (keyup)="buscarCancion(busqueda.value)">
             </div>
   
-            <table class="table table-hover mb-0" aria-describedby="colecName">
+            <table class="table table-hover mb-0 table-striped" aria-describedby="colecName">
               <tbody>
                   <tr *ngFor="let cancion of mostrarCanciones; index as i" (click)="onSelect(cancion, i)" [ngClass]="{'selected': i === indiceSeleccionado}">
                     <td>{{cancion.titulo}}</td>
-                    <td>{{cancion.minutos}}:{{cancion.segundos}}</td>
+                    <td>{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
                   </tr>
               </tbody>
             </table>
@@ -31,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col col-xs-12">
         <app-cancion-detail (deleteCancion)="eliminarCancion()" [cancion]="cancionSeleccionada"></app-cancion-detail>
       </div>
     </div>

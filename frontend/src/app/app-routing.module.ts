@@ -9,55 +9,64 @@ import { CancionCreateComponent } from './cancion/cancion-create/cancion-create.
 import { CancionEditComponent } from './cancion/cancion-edit/cancion-edit.component';
 import { AlbumJoinCancionComponent } from './album/album-join-cancion/album-join-cancion.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   {
     path: '',
     component: UsuarioLoginComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'signin',
     component: UsuarioLoginComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'signup',
     component: UsuarioSignupComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'albumes/:userId/:userToken',
-    component: AlbumListComponent
+    component: AlbumListComponent,
   },
   {
     path: 'albumes/create/:userId/:userToken',
-    component: AlbumCreateComponent
+    component: AlbumCreateComponent,
   },
   {
     path: 'albumes/edit/:albumId/:userId/:userToken',
-    component: AlbumEditComponent
+    component: AlbumEditComponent,
   },
   {
     path: 'albumes/join/:albumId/:userId/:userToken',
-    component: AlbumJoinCancionComponent
+    component: AlbumJoinCancionComponent,
   },
   {
     path: 'canciones/:userId/:userToken',
-    component: CancionListComponent
+    component: CancionListComponent,
   },
   {
     path: 'canciones/create/:userId/:userToken',
-    component: CancionCreateComponent
+    component: CancionCreateComponent,
   },
   {
     path: 'canciones/edit/:cancionId/:userId/:userToken',
-    component: CancionEditComponent
-  }
+    component: CancionEditComponent,
+  },
+
+  {
+    path: 'acerca-de-nosotros',
+    component: AboutUsComponent,
+  },
+  //Wild Card Route for 404 request
+  { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

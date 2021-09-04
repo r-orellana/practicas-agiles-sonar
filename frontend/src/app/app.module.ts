@@ -10,10 +10,16 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { AlbumModule } from './album/album.module';
 import { AppHeaderModule } from './app-header/app-header.module';
 import { CancionModule } from './cancion/cancion.module';
+import { FooterComponent } from './footer/footer.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    NotFoundPageComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

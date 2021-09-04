@@ -4,10 +4,11 @@ import { CancionService } from '../cancion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-cancion-list',
   templateUrl: './cancion-list.component.html',
-  styleUrls: ['./cancion-list.component.css']
+  styleUrls: ['./cancion-list.component.css'],
 })
 export class CancionListComponent implements OnInit {
 
@@ -15,7 +16,7 @@ export class CancionListComponent implements OnInit {
     private cancionService: CancionService,
     private routerPath: Router,
     private router: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   userId: number
@@ -90,5 +91,7 @@ export class CancionListComponent implements OnInit {
   showSuccess() {
     this.toastr.success(`La canción fue eliminada`, "Eliminada exitosamente");
   }
+
+  
 
 }

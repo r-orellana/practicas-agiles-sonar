@@ -1,34 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  constructor() {}
 
-  constructor(
-    private routerPath: Router,
-    private router: ActivatedRoute
-    ) { }
+  @Input() isSidenavToggled = false;
+  @Input() handleToggleMenu: any;
 
   ngOnInit(): void {
     return;
   }
-
-  goTo(menu: string){
-    const userId = parseInt(this.router.snapshot.params.userId)
-    const token = this.router.snapshot.params.userToken
-    if(menu === "logIn"){
-      this.routerPath.navigate([`/`])
-    }
-    else if(menu === "album"){
-      this.routerPath.navigate([`/albumes/${userId}/${token}`])
-    }
-    else{
-      this.routerPath.navigate([`/canciones/${userId}/${token}`])
-    }
-  }
-
 }

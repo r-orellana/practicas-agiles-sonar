@@ -30,12 +30,12 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" style="min-height: fit-content;">
     <div class="col-12 mt-3 mb-2 ms-2">
       <h5>Canciones</h5>
     </div>
     <div class="col-12">
-      <table class="table table-hover table-bordered" >
+      <table class="table table-hover table-bordered table-striped" >
         <thead class="table-light">
           <tr>
             <th scope="col" class="text-center">Canción</th>
@@ -46,7 +46,7 @@
         <tbody>
             <tr *ngFor="let cancion of album?.canciones" >
               <td >{{cancion.titulo}}</td>
-              <td class="text-center">{{cancion.minutos}}:{{cancion.segundos}}</td>
+              <td class="text-center">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
               <td >{{cancion.interprete}}</td>
             </tr>
         </tbody>

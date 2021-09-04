@@ -11,8 +11,8 @@
   <div class="row mt-2">
     <div class="col-6">
       <div class="card">
-        <div class="card-body">
-          <p class="my-0"><span class="fw-bold">Duración: </span> <span class="text-capitalize">{{cancion?.minutos}}:{{cancion?.segundos}}</span></p>
+        <div *ngIf="cancion" class="card-body">
+          <p class="my-0"><span class="fw-bold">Duración: </span> <span class="text-capitalize">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</span></p>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
       <h5>Álbumes</h5>
     </div>
     <div class="col-12">
-      <table class="table table-hover table-bordered" >
+      <table class="table table-hover table-bordered " >
         <thead class="table-light">
           <tr>
             <th scope="col" class="text-center">Título</th>

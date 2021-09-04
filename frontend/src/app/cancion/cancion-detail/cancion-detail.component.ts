@@ -23,7 +23,6 @@ export class CancionDetailComponent implements OnInit {
   ngOnInit() {
     this.userId = parseInt(this.router.snapshot.params.userId)
     this.token = this.router.snapshot.params.userToken
-    
   }
 
   eliminarCancion(){
