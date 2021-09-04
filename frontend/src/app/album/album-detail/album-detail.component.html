@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="row" style="min-height: fit-content;">
+  <div class="row" style="min-height: fit-content;" >
     <div class="col-12 mt-3 mb-2 ms-2">
       <h5>Canciones</h5>
     </div>
@@ -43,14 +43,27 @@
             <th scope="col" class="text-center">Intérprete</th>
           </tr>
         </thead>
+       
         <tbody>
             <tr *ngFor="let cancion of album?.canciones" >
-              <td >{{cancion.titulo}}</td>
-              <td class="text-center">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
-              <td >{{cancion.interprete}}</td>
+              <ng-container *ngIf="album.canciones.length > 0">
+                <td >{{cancion.titulo}}</td>
+                <td class="text-center">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
+                <td >{{cancion.interprete}}</td>
+              </ng-container>
+              
             </tr>
+           
         </tbody>
+          <ng-container *ngIf="album?.canciones?.length === 0">
+            <p class="text-primary my-2 mx-5 text-center">
+              Aún no tienes canciones asociadas, porfavor asocia una para continuar
+            </p>
+          </ng-container>
       </table>
+      
     </div>
+    
   </div>
+  
 </div>

@@ -24,6 +24,7 @@ export class AlbumListComponent implements OnInit {
   mostrarAlbumes: Array<Album>
   albumSeleccionado: Album
   indiceSeleccionado: number
+  isEmpty: boolean = true;
 
   ngOnInit() {
     if(!parseInt(this.router.snapshot.params.userId) || this.router.snapshot.params.userToken === " "){
@@ -42,6 +43,7 @@ export class AlbumListComponent implements OnInit {
       this.albumes = albumes
       this.mostrarAlbumes = albumes
       if(albumes.length>0){
+        this.isEmpty = false
         this.onSelect(this.mostrarAlbumes[0], 0)
       }
     },

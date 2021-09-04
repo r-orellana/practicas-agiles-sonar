@@ -11,29 +11,29 @@ export class AlbumDetailComponent implements OnInit {
 
   @Input() album: Album;
   @Output() deleteAlbum = new EventEmitter();
-  
+
   userId: number;
   token: string;
 
   constructor(
     private routerPath: Router,
     private router: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.userId = parseInt(this.router.snapshot.params.userId)
     this.token = this.router.snapshot.params.userToken
   }
 
-  goToEdit(){
+  goToEdit() {
     this.routerPath.navigate([`/albumes/edit/${this.album.id}/${this.userId}/${this.token}`])
   }
 
-  goToJoinCancion(){
+  goToJoinCancion() {
     this.routerPath.navigate([`/albumes/join/${this.album.id}/${this.userId}/${this.token}`])
   }
-  
-  eliminarAlbum(){
+
+  eliminarAlbum() {
     this.deleteAlbum.emit(this.album.id)
   }
 
