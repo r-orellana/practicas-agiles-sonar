@@ -17,20 +17,23 @@ usuario_schema = UsuarioSchema()
 album_schema = AlbumSchema()
 
 
-class VistaCanciones(Resource):
-    def post(self):
+class VistaCancionesUsuario(Resource):
+    def post(self, id_usuario):
         nueva_cancion = Cancion(
             titulo=request.json["titulo"],
             minutos=request.json["minutos"],
             segundos=request.json["segundos"],
             interprete=request.json["interprete"],
         )
-        db.session.add(nueva_cancion)
+        usuario = Usuario.query.get_or_404(id_usuario)
+        usuario.canciones.append(nueva_cancion)
+
         db.session.commit()
         return cancion_schema.dump(nueva_cancion)
 
-    def get(self):
-        return [cancion_schema.dump(ca) for ca in Cancion.query.all()]
+    def get(self, id_usuario):
+        usuario = Usuario.query.get_or_404(id_usuario)
+        return [cancion_schema.dump(ca) for ca in usuario.canciones]
 
 
 class VistaCancion(Resource):

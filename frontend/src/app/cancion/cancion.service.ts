@@ -21,16 +21,16 @@ export class CancionService {
     return this.http.get<Cancion[]>(`${this.backUrl}/album/${idAlbum}/canciones`, {headers: headers})
   }
 
-  getCanciones(): Observable<Cancion[]>{
-    return this.http.get<Cancion[]>(`${this.backUrl}/canciones`)
+  getCanciones(usuario: number): Observable<Cancion[]>{
+    return this.http.get<Cancion[]>(`${this.backUrl}/usuario/${usuario}/canciones`)
   }
 
   getAlbumesCancion(cancionId: number): Observable<Album[]>{
     return this.http.get<Album[]>(`${this.backUrl}/cancion/${cancionId}/albumes`)
   }
 
-  crearCancion(cancion: Cancion):Observable<Cancion>{
-    return this.http.post<Cancion>(`${this.backUrl}/canciones`, cancion)
+  crearCancion(idUsuario: number,cancion: Cancion):Observable<Cancion>{
+    return this.http.post<Cancion>(`${this.backUrl}/usuario/${idUsuario}/canciones`, cancion)
   }
 
   getCancion(cancionId: number): Observable<Cancion>{
