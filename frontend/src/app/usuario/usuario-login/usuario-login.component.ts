@@ -32,7 +32,7 @@ export class UsuarioLoginComponent implements OnInit {
         localStorage.setItem('userId', decodedToken.sub);
 
         this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`]);
-        document.getElementById('sidebar-wrapper')?.classList.remove('sb-sidenav-toggled')
+        document.getElementById('sidebar-wrapper')?.classList.add('sb-sidenav-toggled')
         document.getElementById('sidebarToggle')?.classList.remove('sb-sidenav-toggled')
       },
       (error) => {

@@ -28,10 +28,13 @@ export class AppComponent {
       this.routerPath.navigate([`/`]);
     } else if (menu === 'album') {
       this.routerPath.navigate([`/albumes/${userId}/${token}`]);
+      this.toggleMenuHandler()
     } else if (menu === 'about') {
       this.routerPath.navigate([`/acerca-de-nosotros`])
+      this.toggleMenuHandler()
     } else {
       this.routerPath.navigate([`/canciones/${userId}/${token}`]);
+      this.toggleMenuHandler()
     }
 
   }
