@@ -1,5 +1,8 @@
+from backend.api import create_api
 import os
 import tempfile
+from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 import pytest
 
@@ -7,7 +10,7 @@ from backend import create_app
 from backend.modelos import db
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app():
     """Create and configure a new app instance for each test."""
     # create a temporary file to isolate the database for each test
@@ -21,6 +24,10 @@ def app():
     db.init_app(app)
     db.create_all()
 
+    create_api(app)
+    JWTManager(app)
+    CORS(app)
+
     yield app
 
     # close and remove the temporary database
@@ -28,7 +35,9 @@ def app():
     os.unlink(db_path)
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def client(app):
+    db.drop_all()
+    db.create_all()
     """A test client for the app."""
     return app.test_client()

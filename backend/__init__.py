@@ -2,7 +2,7 @@ from typing import Dict
 from flask import Flask
 
 
-def create_app(config_dict: Dict = {}):
+def create_app(config_dict: Dict = {}) -> Flask:
     app = Flask(__name__)
     app.config[
         "SQLALCHEMY_DATABASE_URI"
