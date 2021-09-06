@@ -1,7 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info border-bottom">
   <div class="container-fluid">
+
       <button class="btn btn-primary" id="sidebarToggle" [class.sb-sidenav-toggled]="isSidenavToggled" (click)="handleToggleMenu()"><span class="navbar-toggler-icon"></span></button>
-        <a routerLink="/"><h1 class="navbar-brand m-1">Ionic App</h1></a>
+
+      <ng-template [ngIf]="showUserName" [ngIfElse]="noUser" >
+        <div style="display: inline; float: right; height: 40px; overflow: hidden" >
+          <img src="{{this.userAvatar}}" style="display: inline; width: 40px; height: 40px;" />
+          <h4 style="display: inline; margin-left: 10px;">{{this.userName}}</h4>
+        </div>
+      </ng-template>
+      <ng-template #noUser>
+        <a href="/" routerLink="/" style="float: right;text-decoration: none;"><h1 class="navbar-brand m-1">Ionic App</h1></a>
+      </ng-template>
+
   </div>
 </nav>
 

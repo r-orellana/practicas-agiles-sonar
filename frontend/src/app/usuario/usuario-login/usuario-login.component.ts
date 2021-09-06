@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
 export class UsuarioLoginComponent implements OnInit {
   helper = new JwtHelperService();
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {
+
+  }
 
   error: boolean = false;
 
@@ -30,7 +32,7 @@ export class UsuarioLoginComponent implements OnInit {
         const decodedToken = this.helper.decodeToken(res.token);
         localStorage.setItem('authToken', res.token);
         localStorage.setItem('userId', decodedToken.sub);
-
+        localStorage.setItem('userName', nombre);
         this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`]);
         document.getElementById('sidebar-wrapper')?.classList.add('sb-sidenav-toggled')
         document.getElementById('sidebarToggle')?.classList.remove('sb-sidenav-toggled')

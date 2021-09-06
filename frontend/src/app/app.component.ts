@@ -23,6 +23,7 @@ export class AppComponent {
     const userId = parseInt(this.router.snapshot.params.userId) || localStorage.getItem('userId');
     const token = this.router.snapshot.params.userToken || localStorage.getItem('authToken');
     if (menu === 'logIn') {
+      localStorage.removeItem('userName')
       localStorage.removeItem('authToken')
       localStorage.removeItem('userId')
       this.routerPath.navigate([`/`]);

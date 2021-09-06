@@ -41,6 +41,7 @@ export class UsuarioSignupComponent implements OnInit {
         this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`])
         localStorage.setItem('authToken', res.token);
         localStorage.setItem('userId', decodedToken.sub);
+        localStorage.setItem('userName', this.usuarioForm.get('nombre')?.value);
         document.getElementById('sidebar-wrapper')?.classList.add('sb-sidenav-toggled')
         document.getElementById('sidebarToggle')?.classList.remove('sb-sidenav-toggled')
         this.showSuccess()
