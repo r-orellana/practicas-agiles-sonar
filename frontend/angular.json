@@ -10,6 +10,12 @@
           "strict": true
         }
       },
+      "i18n": {
+        "sourceLocale": "es",
+        "locales": {
+          "en": "src/locale/messages/messages.en.xlf"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -36,6 +42,10 @@
           },
           "configurations": {
             "production": {
+              "localize": true,
+              "aot": true,
+              "i18nMissingTranslation": "error",
+            
               "budgets": [
                 {
                   "type": "initial",
@@ -63,9 +73,14 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "en": {
+              "localize": [ "en" ],
+              "aot": true
             }
           },
           "defaultConfiguration": "production"
+
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -75,6 +90,9 @@
             },
             "development": {
               "browserTarget": "ionic:build:development"
+            },
+            "en": {
+              "browserTarget": "ionic:build:en"
             }
           },
           "defaultConfiguration": "development"
