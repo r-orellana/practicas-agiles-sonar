@@ -41,6 +41,7 @@ pipeline {
                         sh '''
                             cd flaskr
                             pip install --user -r requirements.txt -r requirements-dev.txt
+                            pip install --user -r requirements-dev.txt
                         '''
                     }
                 }
