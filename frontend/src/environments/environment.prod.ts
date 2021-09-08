@@ -3,5 +3,5 @@ const port = '8080';
 
 export const environment = {
   production: true,
-  baseUrl: `http://${host}:${port}/`
+  baseUrl: `http://${host}:${port}`
 };

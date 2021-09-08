@@ -31,7 +31,7 @@ module.exports = (shipit) => {
       await shipit.remote("npm install production", {
         cwd: `${shipit.releasePath}/frontend`
       });
-      await shipit.remote("NODE_ENV=production npm run build", {
+      await shipit.remote("NODE_ENV=production npm run build -- --localize", {
         cwd: `${shipit.releasePath}/frontend`
       });
     });
@@ -52,6 +52,5 @@ module.exports = (shipit) => {
   
     shipit.blTask("ionic:restart", async () => {
       await shipit.remote("sudo systemctl restart ionic-backend.service", { tty: true });
-      await shipit.remote("sudo systemctl restart ionic-frontend.service", { tty: true });
     });
   };
