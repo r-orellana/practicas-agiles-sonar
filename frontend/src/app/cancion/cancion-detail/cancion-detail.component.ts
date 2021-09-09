@@ -33,4 +33,8 @@ export class CancionDetailComponent implements OnInit {
     this.routerPath.navigate([`/canciones/edit/${this.cancion.id}/${this.userId}/${this.token}`])
   }
 
+  goToShareCancion() {
+    this.routerPath.navigate([`/canciones/share/${this.cancion.id}/${this.userId}/${this.token}`])
+  }
+
 }

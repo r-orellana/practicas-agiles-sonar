@@ -20,6 +20,7 @@ export class CancionListComponent implements OnInit {
   userId: number;
   token: string;
   canciones: Array<Cancion>;
+  cancionesCompartidas: Array<Cancion>;
   mostrarCanciones: Array<Cancion>;
   cancionSeleccionada: Cancion;
   indiceSeleccionado: number = 0;
@@ -37,6 +38,16 @@ export class CancionListComponent implements OnInit {
       this.userId = parseInt(this.router.snapshot.params.userId);
       this.token = this.router.snapshot.params.userToken;
       this.getCanciones();
+      this.getCancionesCompartidas();
+    }
+  }
+
+  mergeCancionList():void{
+
+    if(this.canciones && this.cancionesCompartidas){
+      this.mostrarCanciones = [...this.canciones, ...this.cancionesCompartidas];
+      this.isEmpty = false
+      this.onSelect(this.mostrarCanciones[0], 0)
     }
   }
 
@@ -46,6 +57,19 @@ export class CancionListComponent implements OnInit {
       this.mostrarCanciones = canciones;
       if (this.canciones.length > 0) {
         this.isEmpty = false;
+        this.mergeCancionList();
+      }
+      this.onSelect(this.mostrarCanciones[0], 0);
+    });
+  }
+
+  getCancionesCompartidas(): void {
+    this.cancionService.getCancionesCompartidas(this.userId, this.token).subscribe((canciones) => {
+      this.cancionesCompartidas = canciones;
+      this.mostrarCanciones = canciones;
+      if (this.canciones.length > 0) {
+        this.isEmpty = false;
+        this.mergeCancionList();
       }
       this.onSelect(this.mostrarCanciones[0], 0);
     });

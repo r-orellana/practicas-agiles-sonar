@@ -17,10 +17,11 @@ export class AlbumListComponent implements OnInit {
     private toastr: ToastrService,
     private routerPath: Router
   ) { }
-  
+
   userId: number
   token: string
   albumes: Array<Album>
+  albumesCompartidos: Array<Album>
   mostrarAlbumes: Array<Album>
   albumSeleccionado: Album
   indiceSeleccionado: number
@@ -34,6 +35,16 @@ export class AlbumListComponent implements OnInit {
       this.userId = parseInt(this.router.snapshot.params.userId)
       this.token = this.router.snapshot.params.userToken
       this.getAlbumes();
+      this.getAlbumesCompartidos();
+    }
+  }
+
+  mergeAlbumList():void{
+
+    if(this.albumes && this.albumesCompartidos){
+      this.mostrarAlbumes = [...this.albumes, ...this.albumesCompartidos];
+      this.isEmpty = false
+      this.onSelect(this.mostrarAlbumes[0], 0)
     }
   }
 
@@ -44,7 +55,7 @@ export class AlbumListComponent implements OnInit {
       this.mostrarAlbumes = albumes
       if(albumes.length>0){
         this.isEmpty = false
-        this.onSelect(this.mostrarAlbumes[0], 0)
+        this.mergeAlbumList();
       }
     },
     error => {
@@ -59,7 +70,31 @@ export class AlbumListComponent implements OnInit {
         this.showError("Ha ocurrido un error. " + error.message)
       }
     })
-    
+
+  }
+
+  getAlbumesCompartidos():void{
+    this.albumService.getAlbumesCompartidos(this.userId, this.token)
+    .subscribe(albumes => {
+      this.albumesCompartidos = albumes
+      if(albumes.length>0){
+        this.isEmpty = false
+        this.mergeAlbumList();
+      }
+    },
+    error => {
+      console.log(error)
+      if(error.statusText === "UNAUTHORIZED"){
+        this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
+      }
+      else if(error.statusText === "UNPROCESSABLE ENTITY"){
+        this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
+      }
+      else{
+        this.showError("Ha ocurrido un error. " + error.message)
+      }
+    })
+
   }
 
   onSelect(a: Album, index: number){

@@ -15,6 +15,7 @@ from .vistas import (
     VistaCancionesAlbum,
     VistaLogIn,
     VistaAlbumesCanciones,
+    VistaUsuario,
 )
 
 
@@ -43,4 +44,7 @@ def create_api(app: Flask) -> Api:
     )
     api.add_resource(VistaAlbum, "/album/<int:id_album>")
     api.add_resource(VistaCancionesAlbum, "/album/<int:id_album>/canciones")
+
+    api.add_resource(VistaUsuario, "/usuarios/<int:id_usuario>")
+
     return api

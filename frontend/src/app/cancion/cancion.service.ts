@@ -25,6 +25,13 @@ export class CancionService {
     return this.http.get<Cancion[]>(`${this.backUrl}/usuario/${usuario}/canciones`)
   }
 
+  getCancionesCompartidas(usuario: number, token: string): Observable<Cancion[]>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Cancion[]>(`${this.backUrl}/usuario/${usuario}/canciones-compartidas`, {headers: headers})
+  }
+
   getAlbumesCancion(cancionId: number): Observable<Album[]>{
     return this.http.get<Album[]>(`${this.backUrl}/cancion/${cancionId}/albumes`)
   }
@@ -43,6 +50,13 @@ export class CancionService {
 
   eliminarCancion(cancionId: number): Observable<Cancion>{
     return this.http.delete<Cancion>(`${this.backUrl}/cancion/${cancionId}`)
+  }
+
+  compartirCancion(cancionId: number, usuarioId: string, token: string): Observable<Cancion>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Cancion>(`${this.backUrl}/usuario/${usuarioId}/cancion-compartida/${cancionId}`,[],{headers: headers})
   }
 
 }

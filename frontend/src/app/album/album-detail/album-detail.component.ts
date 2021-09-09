@@ -37,4 +37,8 @@ export class AlbumDetailComponent implements OnInit {
     this.deleteAlbum.emit(this.album.id)
   }
 
+  goToShareAlbum() {
+    this.routerPath.navigate([`/albumes/share/${this.album.id}/${this.userId}/${this.token}`])
+  }
+
 }

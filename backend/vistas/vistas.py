@@ -173,6 +173,19 @@ class VistaAlbum(Resource):
         return "", 204
 
 
+class VistaUsuario(Resource):
+    def get(self, id_usuario):
+        listUsuariosSimple = []
+        listUsuarios = Usuario.query.all()
+
+        for u in listUsuarios:
+            if u.id != id_usuario:
+                usuario = {"nombre": u.nombre, "id": u.id}
+                listUsuariosSimple.append(usuario)
+
+        return listUsuariosSimple
+
+
 class VistaAlbumsCompartidosUsuario(Resource):
     @jwt_required()
     def get(self, id_usuario):

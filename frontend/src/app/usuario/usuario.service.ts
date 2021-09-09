@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Usuario} from './usuario';
 
 @Injectable({
     providedIn: 'root'
@@ -18,5 +19,9 @@ export class UsuarioService {
 
     userSignUp(nombre: string, contrasena: string): Observable<any>{
         return this.http.post<any>(`${this.backUrl}/signin`, {"nombre": nombre, "contrasena": contrasena})
+    }
+
+    getUsuarios(usuario: number): Observable<Usuario[]>{
+      return this.http.get<Usuario[]>(`${this.backUrl}/usuarios/${usuario}`)
     }
 }

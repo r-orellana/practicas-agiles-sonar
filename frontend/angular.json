@@ -134,6 +134,7 @@
   },
   "defaultProject": "ionic",
   "cli": {
+    "analytics": "26003464-099a-4d72-b38d-655ed9735557",
     "defaultCollection": "@angular-eslint/schematics"
   }
 }
