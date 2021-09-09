@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt -r requirements-dev.txt
       - name: Run linters and formatters
         run: |
-          echo "Running black..." && black backend --check
+          echo "Running black..." && black . --check
           echo "Running flake8..." && flake8 . --benchmark
       - name: Run tests
         run: |

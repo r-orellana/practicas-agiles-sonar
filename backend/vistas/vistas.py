@@ -10,7 +10,7 @@ from ..modelos import (
 )
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import jwt_required, create_access_token
+from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
 cancion_schema = CancionSchema()
 usuario_schema = UsuarioSchema()
@@ -171,3 +171,67 @@ class VistaAlbum(Resource):
         db.session.delete(album)
         db.session.commit()
         return "", 204
+
+
+class VistaAlbumsCompartidosUsuario(Resource):
+    @jwt_required()
+    def get(self, id_usuario):
+        usuario = Usuario.query.get_or_404(id_usuario)
+        return [album_schema.dump(al) for al in usuario.albumes_compartidos]
+
+
+class VistaAlbumCompartidoUsuario(Resource):
+    @jwt_required()
+    def post(self, id_usuario, id_album):
+        id_propietario = get_jwt_identity()
+        print(id_propietario)
+        propietario = Usuario.query.get_or_404(id_propietario)
+        albumes = propietario.albumes
+        if not any([id_album == album.id for album in albumes]):
+            return "Album no pertenece al usuario", 405
+        album = Album.query.get_or_404(id_album)
+        receptor = Usuario.query.get_or_404(id_usuario)
+        receptor.albumes_compartidos.append(album)
+        db.session.commit()
+        return album_schema.dump(album)
+
+    @jwt_required()
+    def get(self, id_usuario, id_album):
+        usuario = Usuario.query.get_or_404(id_usuario)
+        albumes = usuario.albumes_compartidos
+        if not any([id_album == album.id for album in albumes]):
+            return "Album no esta compartido con el usuario", 403
+        album = Album.query.get_or_404(id_album)
+        return album_schema.dump(album)
+
+
+class VistaCancionesCompartidasUsuario(Resource):
+    @jwt_required()
+    def get(self, id_usuario):
+        usuario = Usuario.query.get_or_404(id_usuario)
+        return [cancion_schema.dump(al) for al in usuario.canciones_compartidas]
+
+
+class VistaCancionCompartidaUsuario(Resource):
+    @jwt_required()
+    def post(self, id_usuario, id_cancion):
+        id_propietario = get_jwt_identity()
+        print(id_propietario)
+        propietario = Usuario.query.get_or_404(id_propietario)
+        canciones = propietario.canciones
+        if not any([id_cancion == cancion.id for cancion in canciones]):
+            return "Cancion no pertenece al usuario", 405
+        cancion = Cancion.query.get_or_404(id_cancion)
+        receptor = Usuario.query.get_or_404(id_usuario)
+        receptor.canciones_compartidas.append(cancion)
+        db.session.commit()
+        return album_schema.dump(cancion)
+
+    @jwt_required()
+    def get(self, id_usuario, id_cancion):
+        usuario = Usuario.query.get_or_404(id_usuario)
+        canciones = usuario.canciones_compartidas
+        if not any([id_cancion == cancion.id for cancion in canciones]):
+            return "Cancion no esta compartido con el usuario", 403
+        cancion = Cancion.query.get_or_404(id_cancion)
+        return cancion_schema.dump(cancion)

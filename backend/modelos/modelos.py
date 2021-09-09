@@ -12,6 +12,18 @@ albumes_canciones = db.Table(
     db.Column("cancion_id", db.Integer, db.ForeignKey("cancion.id"), primary_key=True),
 )
 
+albumes_compartidos = db.Table(
+    "album_compartido",
+    db.Column("album_id", db.Integer, db.ForeignKey("album.id"), primary_key=True),
+    db.Column("usuario_id", db.Integer, db.ForeignKey("usuario.id"), primary_key=True),
+)
+
+canciones_compartidas = db.Table(
+    "cancion_compartida",
+    db.Column("cancion_id", db.Integer, db.ForeignKey("cancion.id"), primary_key=True),
+    db.Column("usuario_id", db.Integer, db.ForeignKey("usuario.id"), primary_key=True),
+)
+
 
 class Cancion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +34,11 @@ class Cancion(db.Model):
     usuario = db.Column(db.Integer, db.ForeignKey("usuario.id"))
     albumes = db.relationship(
         "Album", secondary="album_cancion", back_populates="canciones"
+    )
+    usuarios_compartidos = db.relationship(
+        "Usuario",
+        secondary="cancion_compartida",
+        back_populates="canciones_compartidas",
     )
 
 
@@ -41,6 +58,9 @@ class Album(db.Model):
     canciones = db.relationship(
         "Cancion", secondary="album_cancion", back_populates="albumes"
     )
+    usuarios_compartidos = db.relationship(
+        "Usuario", secondary="album_compartido", back_populates="albumes_compartidos"
+    )
 
 
 class Usuario(db.Model):
@@ -49,6 +69,12 @@ class Usuario(db.Model):
     contrasena = db.Column(db.String(50))
     albumes = db.relationship("Album", cascade="all, delete, delete-orphan")
     canciones = db.relationship("Cancion", cascade="all, delete, delete-orphan")
+    albumes_compartidos = db.relationship(
+        "Album", secondary="album_compartido", back_populates="usuarios_compartidos"
+    )
+    canciones_compartidas = db.relationship(
+        "Cancion", secondary="cancion_compartida", back_populates="usuarios_compartidos"
+    )
 
 
 class EnumADiccionario(fields.Field):
