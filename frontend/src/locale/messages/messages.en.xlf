@@ -682,14 +682,6 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8690849213797614099" datatype="html">
-        <target>Interprete</target>
-        <source>Interprete</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/cancion/cancion-edit/cancion-edit.component.html</context>
-          <context context-type="linenumber">72</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="8554766801919108228" datatype="html">
         <target>You must enter an interpreter for the song</target>
         <source>Debe ingresar un interprete para la canción</source>
@@ -944,6 +936,66 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/usuario/usuario-signup/usuario-signup.component.html</context>
           <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1311742845758996991" datatype="html">
+        <target>Share album</target>
+        <source>Compartir álbum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-share/album-share.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-share/album-share.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6176754072682482604" datatype="html">
+        <target>Users</target>
+        <source>Usuarios</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-share/album-share.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-share/cancion-share.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5871034434415244025" datatype="html">
+        <target>Select user</target>
+        <source>Seleccionar usuario</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-share/album-share.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-share/cancion-share.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="43355876893521161" datatype="html">
+        <target>You must select a user to share</target>
+        <source>Debe seleccionar un usuario para compartir</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-share/album-share.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-share/cancion-share.component.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6315415685363337781" datatype="html">
+        <target>Share song</target>
+        <source>Compartir canción</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-share/cancion-share.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-share/cancion-share.component.html</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
     </body>
