@@ -72,6 +72,6 @@ jobs:
           key: ${{ secrets.STAGING_SSH }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Install dependencies
-        run: npm i shipit-cli shipit-deploy
+        run: npm ci
       - name: Deploy on Staging
         run: npx shipit staging deploy
