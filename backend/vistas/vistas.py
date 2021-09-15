@@ -1,3 +1,4 @@
+from backend.modelos.modelos import ComentarioAlbum, ComentarioAlbumSchema
 from flask import request
 from ..modelos import (
     db,
@@ -12,6 +13,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
+comentaAlbum_schema = ComentarioAlbumSchema()
 cancion_schema = CancionSchema()
 usuario_schema = UsuarioSchema()
 album_schema = AlbumSchema()
@@ -248,3 +250,27 @@ class VistaCancionCompartidaUsuario(Resource):
             return "Cancion no esta compartido con el usuario", 403
         cancion = Cancion.query.get_or_404(id_cancion)
         return cancion_schema.dump(cancion)
+
+
+class VistaComentarioAlbum(Resource):
+    @jwt_required()
+    def post(self, id_album, id_usuario):
+
+        propietario = Usuario.query.get_or_404(
+            id_usuario,
+        )
+
+        album = Album.query.get_or_404(
+            id_album,
+        )
+
+        nuevo_comentario_album = ComentarioAlbum(
+            usuarioId=propietario.id,
+            albumId=id_album,
+            contenido=request.json["contenido"],
+        )
+
+        album.comentarios.append(nuevo_comentario_album)
+
+        db.session.commit()
+        return comentaAlbum_schema.dump(nuevo_comentario_album)

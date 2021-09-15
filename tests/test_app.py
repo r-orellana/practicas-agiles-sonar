@@ -396,3 +396,27 @@ def test_usuario_comparte_cancion_ajena(client):
     # Assert
     assert post_response.status_code == 405
     assert "Cancion no pertenece al usuario" in post_data
+
+
+def test_comentar_album(client):
+    # Arrange
+    user1 = Usuario(**user1_data)
+    album1 = Album(**album1_data)
+    user1.albumes.append(album1)
+    db.session.add(user1)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    contenido = "Comentario"
+    # Comentar Album 1 por parte del usuario 1
+    response = client.post(
+        "/comentarios/album/1/1", headers=headers, json={"contenido": contenido}
+    )
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert
+    assert response.status_code == 200
+    assert data["id"] == 1
+    assert data["contenido"] == contenido

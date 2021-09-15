@@ -63,6 +63,7 @@ class Album(db.Model):
     usuarios_compartidos = db.relationship(
         "Usuario", secondary="album_compartido", back_populates="albumes_compartidos"
     )
+    comentarios = db.relationship("ComentarioAlbum", back_populates="album")
 
 
 class Usuario(db.Model):
@@ -76,6 +77,30 @@ class Usuario(db.Model):
     )
     canciones_compartidas = db.relationship(
         "Cancion", secondary="cancion_compartida", back_populates="usuarios_compartidos"
+    )
+
+
+class ComentarioAlbum(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    parentId = db.Column(
+        db.Integer, db.ForeignKey("comentario_album.id"), nullable=True
+    )
+    contenido = db.Column(db.String(512))
+    albumId = db.Column(db.Integer, db.ForeignKey("album.id"))
+    album = db.relationship("Album", back_populates="comentarios")
+    usuarioId = db.Column(db.Integer, db.ForeignKey("usuario.id"))
+    usuario = db.relationship("Usuario")
+    children = db.relationship(
+        "ComentarioAlbum",
+        order_by="desc(ComentarioAlbum.id)",
+        back_populates="parent",
+        remote_side=[parentId],
+    )
+    parent = db.relationship(
+        "ComentarioAlbum",
+        order_by="desc(ComentarioAlbum.id)",
+        back_populates="children",
+        remote_side=[id],
     )
 
 
@@ -105,5 +130,12 @@ class AlbumSchema(SQLAlchemyAutoSchema):
 class UsuarioSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Usuario
+        include_relationships = True
+        load_instance = True
+
+
+class ComentarioAlbumSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = ComentarioAlbum
         include_relationships = True
         load_instance = True
