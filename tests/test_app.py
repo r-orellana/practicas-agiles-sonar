@@ -420,3 +420,27 @@ def test_comentar_album(client):
     assert response.status_code == 200
     assert data["id"] == 1
     assert data["contenido"] == contenido
+
+
+def test_comentar_cancion(client):
+    # Arrange
+    user1 = Usuario(**user1_data)
+    cancion1 = Cancion(**cancion1_data)
+    user1.canciones.append(cancion1)
+    db.session.add(user1)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    contenido = "Comentario"
+    # Comentar Cancion 1 por parte del usuario 1
+    response = client.post(
+        "/comentarios/cancion/1/1", headers=headers, json={"contenido": contenido}
+    )
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert
+    assert response.status_code == 200
+    assert data["id"] == 1
+    assert data["contenido"] == contenido

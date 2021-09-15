@@ -41,6 +41,7 @@ class Cancion(db.Model):
         secondary="cancion_compartida",
         back_populates="canciones_compartidas",
     )
+    comentarios = db.relationship("ComentarioCancion", back_populates="cancion")
 
 
 class Medio(enum.Enum):
@@ -104,6 +105,30 @@ class ComentarioAlbum(db.Model):
     )
 
 
+class ComentarioCancion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    parentId = db.Column(
+        db.Integer, db.ForeignKey("comentario_cancion.id"), nullable=True
+    )
+    contenido = db.Column(db.String(512))
+    cancionId = db.Column(db.Integer, db.ForeignKey("cancion.id"))
+    cancion = db.relationship("Cancion", back_populates="comentarios")
+    usuarioId = db.Column(db.Integer, db.ForeignKey("usuario.id"))
+    usuario = db.relationship("Usuario")
+    children = db.relationship(
+        "ComentarioCancion",
+        order_by="desc(ComentarioCancion.id)",
+        back_populates="parent",
+        remote_side=[parentId],
+    )
+    parent = db.relationship(
+        "ComentarioCancion",
+        order_by="desc(ComentarioCancion.id)",
+        back_populates="children",
+        remote_side=[id],
+    )
+
+
 class EnumADiccionario(fields.Field):
     def _serialize(self, value, attr, obj, **kwargs):
         if value is None:
@@ -137,5 +162,12 @@ class UsuarioSchema(SQLAlchemyAutoSchema):
 class ComentarioAlbumSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = ComentarioAlbum
+        include_relationships = True
+        load_instance = True
+
+
+class ComentarioCancionSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = ComentarioCancion
         include_relationships = True
         load_instance = True

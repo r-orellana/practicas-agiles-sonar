@@ -1,4 +1,3 @@
-from backend.modelos.modelos import ComentarioAlbum, ComentarioAlbumSchema
 from flask import request
 from ..modelos import (
     db,
@@ -8,11 +7,16 @@ from ..modelos import (
     UsuarioSchema,
     Album,
     AlbumSchema,
+    ComentarioAlbum,
+    ComentarioAlbumSchema,
+    ComentarioCancion,
+    ComentarioCancionSchema,
 )
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
+comentaCancion_schema = ComentarioCancionSchema()
 comentaAlbum_schema = ComentarioAlbumSchema()
 cancion_schema = CancionSchema()
 usuario_schema = UsuarioSchema()
@@ -274,3 +278,27 @@ class VistaComentarioAlbum(Resource):
 
         db.session.commit()
         return comentaAlbum_schema.dump(nuevo_comentario_album)
+
+
+class VistaComentarioCancion(Resource):
+    @jwt_required()
+    def post(self, id_cancion, id_usuario):
+
+        propietario = Usuario.query.get_or_404(
+            id_usuario,
+        )
+
+        cancion = Cancion.query.get_or_404(
+            id_cancion,
+        )
+
+        nuevo_comentario_cancion = ComentarioCancion(
+            usuarioId=propietario.id,
+            cancionId=id_cancion,
+            contenido=request.json["contenido"],
+        )
+
+        cancion.comentarios.append(nuevo_comentario_cancion)
+
+        db.session.commit()
+        return comentaAlbum_schema.dump(nuevo_comentario_cancion)

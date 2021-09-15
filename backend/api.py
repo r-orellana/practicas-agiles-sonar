@@ -5,6 +5,7 @@ from backend.vistas.vistas import (
     VistaCancionesCompartidasUsuario,
     VistaAlbumesCanciones,
     VistaComentarioAlbum,
+    VistaComentarioCancion,
 )
 from flask import Flask
 from flask_restful import Api
@@ -50,6 +51,10 @@ def create_api(app: Flask) -> Api:
 
     api.add_resource(
         VistaComentarioAlbum, "/comentarios/album/<int:id_album>/<int:id_usuario>"
+    )
+
+    api.add_resource(
+        VistaComentarioCancion, "/comentarios/cancion/<int:id_cancion>/<int:id_usuario>"
     )
 
     return api
