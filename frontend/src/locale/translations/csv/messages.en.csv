@@ -104,3 +104,8 @@
 "3848941286389228714","Debe ingresar un comentario para el álbum","You must enter a comment for the album"
 "7256996094960728307","El comentario del álbum debe tener por lo menos 5 carácteres","The album comment must have at least 5 characters"
 "509080582896980546","El comentario del álbum no debe superar los 512 carácteres","The album comment must not exceed 512 characters"
+"3599960214311301509","Comentar Canción","Comment Song"
+"2932823561071314220","Comentario de la canción","Song comment"
+"4987442121244905091","Debe ingresar un comentario para la canción","You must enter a comment for the song"
+"2394834208431737977","El comentario de la canción debe tener por lo menos 5 carácteres","The song comment must have at least 5 characters"
+"1304356394455209005","El comentario de la canción no debe superar los 512 carácteres","The song comment must not exceed 512 characters"

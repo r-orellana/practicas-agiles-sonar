@@ -1046,6 +1046,46 @@
           <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3599960214311301509" datatype="html">
+        <target>Comment Song</target>
+        <source>Comentar Canción</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2932823561071314220" datatype="html">
+        <target>Song comment</target>
+        <source>Comentario de la canción</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4987442121244905091" datatype="html">
+        <target>You must enter a comment for the song</target>
+        <source>Debe ingresar un comentario para la canción</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2394834208431737977" datatype="html">
+        <target>The song comment must have at least 5 characters</target>
+        <source>El comentario de la canción debe tener por lo menos 5 carácteres</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1304356394455209005" datatype="html">
+        <target>The song comment must not exceed 512 characters</target>
+        <source>El comentario de la canción no debe superar los 512 carácteres</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

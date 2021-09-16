@@ -10,6 +10,7 @@ import { CancionListComponent } from './cancion/cancion-list/cancion-list.compon
 import { CancionCreateComponent } from './cancion/cancion-create/cancion-create.component';
 import { CancionEditComponent } from './cancion/cancion-edit/cancion-edit.component';
 import { CancionShareComponent } from './cancion/cancion-share/cancion-share.component';
+import { CancionCommentComponent } from './cancion/cancion-comment/cancion-comment.component';
 import { AlbumJoinCancionComponent } from './album/album-join-cancion/album-join-cancion.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
@@ -70,6 +71,10 @@ const routes: Routes = [
   {
     path: 'canciones/share/:cancionId/:userId/:userToken',
     component: CancionShareComponent,
+  },
+  {
+    path: 'canciones/comment/:cancionId/:userId/:userToken',
+    component: CancionCommentComponent,
   },
 
   {

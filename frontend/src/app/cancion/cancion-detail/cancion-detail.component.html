@@ -5,6 +5,7 @@
       <label class="fs-4 fw-bold"><span i18n>Canción: </span>{{cancion?.titulo}}</label>
       <button *ngIf="cancion && (userId === cancion.usuario)" type="button" class="btn btn-outline-success ms-3 me-2" (click)="goToEdit()" title="Editar canción"><i class="bi bi-pencil-square"></i></button>
       <button *ngIf="cancion && (userId === cancion.usuario)" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToShareCancion()" title="Compartir canción"><i class="bi bi-share-fill"></i></button>
+      <button *ngIf="cancion" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToCommentCancion()" title="Comentar Canción"><i class="bi bi-chat-text"></i></button>
       <button *ngIf="cancion && (userId === cancion.usuario)" type="button" class="btn btn-outline-danger me-1" (click)="eliminarCancion()" title="Eliminar canción"><i class="bi bi-trash-fill"></i></button>
     </div>
   </div>
@@ -13,14 +14,14 @@
     <div class="col-6">
       <div class="card">
         <div *ngIf="cancion" class="card-body">
-          <p class="my-0"><span i18n class="fw-bold">Duración: </span> <span class="text-capitalize">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</span></p>
+          <p class="my-0"><span i18n class="fw-bold">Duración: </span> <span class="text-capitalize"> {{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</span></p>
         </div>
       </div>
     </div>
     <div class="col-6">
       <div class="card">
         <div class="card-body">
-          <p class="my-0"><span i18n class="fw-bold">Intérpretes: </span> <span class="text-capitalize">{{cancion?.interprete}}</span></p>
+          <p class="my-0"><span i18n class="fw-bold">Intérpretes: </span> <span class="text-capitalize"> {{cancion?.interprete}}</span></p>
         </div>
       </div>
     </div>

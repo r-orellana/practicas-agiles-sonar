@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card mx-3 my-5">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p i18n class="mt-5 mb-2 fs-3 fw-bold">Comentar Canción</p>
+          </div>
+        </div>
+        <form class="mx-5 my-3" [formGroup]="cancionForm" (ngSubmit)="comentarCancion()">
+
+          <div class="form-group my-2">
+            <div class="row">
+              <div class="col-2 text-start">
+                <label i18n for="comentario">Comentario </label>
+              </div>
+              <div class="col-10">
+                <textarea class=" form-control" formControlName="comentario" placeholder="Comentario de la canción" i18n-placeholder></textarea>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-8">
+                <div i18n class="alert alert-danger my-3" *ngIf="cancionForm.get('comentario')?.hasError('required') && cancionForm.get('comentario')?.touched">
+                  Debe ingresar un comentario para la canción
+                </div>
+                <div i18n class="alert alert-danger my-3" *ngIf="cancionForm.get('comentario')?.hasError('minlength')">
+                  El comentario de la canción debe tener por lo menos 5 carácteres
+                </div>
+                <div i18n class="alert alert-danger my-3" *ngIf="cancionForm.get('comentario')?.hasError('maxlength')">
+                  El comentario de la canción no debe superar los 512 carácteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-6 text-end">
+              <button i18n class="btn btn-danger" (click)="cancelComentario()">Cancelar</button>
+            </div>
+            <div class="col-6 text-start">
+              <button i18n type="submit" class="btn btn-primary" [disabled]="!cancionForm.valid">Guardar cambios</button>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

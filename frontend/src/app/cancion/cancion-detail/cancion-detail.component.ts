@@ -37,4 +37,8 @@ export class CancionDetailComponent implements OnInit {
     this.routerPath.navigate([`/canciones/share/${this.cancion.id}/${this.userId}/${this.token}`])
   }
 
+  goToCommentCancion(){
+    this.routerPath.navigate([`/canciones/comment/${this.cancion.id}/${this.userId}/${this.token}`])
+  }
+
 }
