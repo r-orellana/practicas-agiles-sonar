@@ -41,4 +41,8 @@ export class AlbumDetailComponent implements OnInit {
     this.routerPath.navigate([`/albumes/share/${this.album.id}/${this.userId}/${this.token}`])
   }
 
+  goToCommentAlbum() {
+    this.routerPath.navigate([`/albumes/comment/${this.album.id}/${this.userId}/${this.token}`])
+  }
+
 }

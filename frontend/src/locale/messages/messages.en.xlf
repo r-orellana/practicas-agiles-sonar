@@ -998,6 +998,54 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7163848465444228626" datatype="html">
+        <target>Comment Album</target>
+        <source>Comentar Álbum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3606771976888811271" datatype="html">
+        <target>Comment</target>
+        <source>Comentario</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3469592973309770544" datatype="html">
+        <target>Album comment</target>
+        <source>Comentario del álbum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3848941286389228714" datatype="html">
+        <target>You must enter a comment for the album</target>
+        <source>Debe ingresar un comentario para el álbum</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7256996094960728307" datatype="html">
+        <target>The album comment must have at least 5 characters</target>
+        <source>El comentario del álbum debe tener por lo menos 5 carácteres</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="509080582896980546" datatype="html">
+        <target>The album comment must not exceed 512 characters</target>
+        <source>El comentario del álbum no debe superar los 512 carácteres</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -5,6 +5,7 @@ import { AlbumListComponent } from './album/album-list/album-list.component';
 import { AlbumCreateComponent } from './album/album-create/album-create.component';
 import { AlbumEditComponent } from './album/album-edit/album-edit.component';
 import { AlbumShareComponent } from './album/album-share/album-share.component';
+import { AlbumCommentComponent } from './album/album-comment/album-comment.component';
 import { CancionListComponent } from './cancion/cancion-list/cancion-list.component';
 import { CancionCreateComponent } from './cancion/cancion-create/cancion-create.component';
 import { CancionEditComponent } from './cancion/cancion-edit/cancion-edit.component';
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'albumes/share/:albumId/:userId/:userToken',
     component: AlbumShareComponent,
+  },
+  {
+    path: 'albumes/comment/:albumId/:userId/:userToken',
+    component: AlbumCommentComponent,
   },
   {
     path: 'canciones/:userId/:userToken',

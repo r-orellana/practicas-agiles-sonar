@@ -8,13 +8,14 @@ import { AlbumEditComponent } from './album-edit/album-edit.component';
 import { AppHeaderModule } from '../app-header/app-header.module';
 import { AlbumJoinCancionComponent } from './album-join-cancion/album-join-cancion.component';
 import { AlbumShareComponent } from './album-share/album-share.component';
+import { AlbumCommentComponent } from './album-comment/album-comment.component';
 
 
 @NgModule({
-  declarations: [AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent],
+  declarations: [AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent,AlbumCommentComponent],
   imports: [
     CommonModule, ReactiveFormsModule, AppHeaderModule
   ],
-  exports:[AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent]
+  exports:[AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent,AlbumCommentComponent]
 })
 export class AlbumModule { }

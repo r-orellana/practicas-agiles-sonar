@@ -6,6 +6,7 @@
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-success ms-3 me-2" (click)="goToEdit()" title="Editar álbum"><i class="bi bi-pencil-square"></i></button>
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToJoinCancion()" title="Agregar canción" ><i class="bi bi-plus" ></i><i class="bi bi-music-note"></i></button>
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToShareAlbum()" title="Compartir canción"><i class="bi bi-share-fill"></i></button>
+      <button *ngIf="album" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToCommentAlbum()" title="Comentar Album"><i class="bi bi-chat-text"></i></button>
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-danger me-1" (click)="eliminarAlbum()" title="Eliminar álbum"><i class="bi bi-trash-fill"></i></button>
     </div>
   </div>
