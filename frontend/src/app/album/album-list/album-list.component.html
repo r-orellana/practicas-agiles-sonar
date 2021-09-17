@@ -24,7 +24,10 @@
             <tbody>
               <tr *ngFor="let album of mostrarAlbumes; index as i" (click)="onSelect(album, i)"
                 [ngClass]="{'selected': i === indiceSeleccionado}">
-                <td>{{album.titulo}}</td>
+                <td>
+                  <i *ngIf="this.userId!==album.usuario" class="bi bi-share-fill"></i>
+                  {{album.titulo}}
+                </td>
                 <td>{{album.anio}}</td>
               </tr>
             </tbody>
