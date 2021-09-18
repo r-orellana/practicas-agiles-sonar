@@ -53,7 +53,7 @@ export class CancionCommentComponent implements OnInit {
 
     let comentario = this.cancionForm.get('comentario')?.value
 
-    this.cancionService.comentarCancion(this.cancionId,this.userId,comentario, this.token)
+    this.cancionService.comentarCancion(this.cancionId,comentario, this.token)
     .subscribe(cancion => {
       this.showSuccess(this.cancionTitulo)
       this.cancionForm.reset()

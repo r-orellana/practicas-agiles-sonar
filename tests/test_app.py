@@ -1,6 +1,6 @@
-from backend.modelos.modelos import Usuario, Cancion, Album, db
-
 from flask import json
+
+from backend.modelos.modelos import Album, Cancion, Usuario, db
 
 # ------- Fixture Data -------
 user1_data = {"nombre": "a@a", "contrasena": "1234"}
@@ -412,7 +412,7 @@ def test_comentar_album(client):
     contenido = "Comentario"
     # Comentar Album 1 por parte del usuario 1
     response = client.post(
-        "/comentarios/album/1/1", headers=headers, json={"contenido": contenido}
+        "/album/1/comentario", headers=headers, json={"contenido": contenido}
     )
     data = json.loads(response.get_data(as_text=True))
 
@@ -436,7 +436,7 @@ def test_comentar_cancion(client):
     contenido = "Comentario"
     # Comentar Cancion 1 por parte del usuario 1
     response = client.post(
-        "/comentarios/cancion/1/1", headers=headers, json={"contenido": contenido}
+        "/cancion/1/comentario", headers=headers, json={"contenido": contenido}
     )
     data = json.loads(response.get_data(as_text=True))
 

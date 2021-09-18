@@ -54,7 +54,7 @@ export class AlbumCommentComponent implements OnInit {
 
     let comentario = this.albumForm.get('comentario')?.value
 
-    this.albumService.comentarAlbum(this.albumId,this.userId,comentario, this.token)
+    this.albumService.comentarAlbum(this.albumId,comentario, this.token)
     .subscribe(album => {
       this.showSuccess(this.albumTitulo)
       this.albumForm.reset()

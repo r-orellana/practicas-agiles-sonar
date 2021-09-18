@@ -1,12 +1,12 @@
-from backend.api import create_api
 import os
 import tempfile
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
 
 import pytest
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
 from backend import create_app
+from backend.api import create_api
 from backend.modelos import db
 
 

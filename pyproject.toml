@@ -1,2 +1,7 @@
 [tool.black]
-extend-exclude = "^(venv/|node_modules/)"
+extend-exclude = ""
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+skip_gitignore = true

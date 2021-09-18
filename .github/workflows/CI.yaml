@@ -24,6 +24,7 @@ jobs:
           pip install -r requirements.txt -r requirements-dev.txt
       - name: Run linters and formatters
         run: |
+          echo "Running isort..." && isort . --check
           echo "Running black..." && black . --check
           echo "Running flake8..." && flake8 . --benchmark
       - name: Run tests

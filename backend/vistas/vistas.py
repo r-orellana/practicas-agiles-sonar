@@ -1,20 +1,21 @@
 from flask import request
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask_restful import Resource
+from sqlalchemy.exc import IntegrityError
+
 from ..modelos import (
-    db,
-    Cancion,
-    CancionSchema,
-    Usuario,
-    UsuarioSchema,
     Album,
     AlbumSchema,
+    Cancion,
+    CancionSchema,
     ComentarioAlbum,
     ComentarioAlbumSchema,
     ComentarioCancion,
     ComentarioCancionSchema,
+    Usuario,
+    UsuarioSchema,
+    db,
 )
-from flask_restful import Resource
-from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
 comentaCancion_schema = ComentarioCancionSchema()
 comentaAlbum_schema = ComentarioAlbumSchema()
@@ -258,8 +259,8 @@ class VistaCancionCompartidaUsuario(Resource):
 
 class VistaComentarioAlbum(Resource):
     @jwt_required()
-    def post(self, id_album, id_usuario):
-
+    def post(self, id_album):
+        id_usuario = get_jwt_identity()
         propietario = Usuario.query.get_or_404(
             id_usuario,
         )
@@ -282,8 +283,8 @@ class VistaComentarioAlbum(Resource):
 
 class VistaComentarioCancion(Resource):
     @jwt_required()
-    def post(self, id_cancion, id_usuario):
-
+    def post(self, id_cancion):
+        id_usuario = get_jwt_identity()
         propietario = Usuario.query.get_or_404(
             id_usuario,
         )

@@ -1,8 +1,10 @@
-from backend.api import create_api
-from backend import create_app
-from .modelos import db
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+
+from backend import create_app
+from backend.api import create_api
+
+from .modelos import db
 
 app = create_app()
 app_context = app.app_context()
