@@ -81,7 +81,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">107</context>
+          <context context-type="linenumber">110</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -261,11 +261,18 @@
           <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5854016398288075017" datatype="html">
+        <source> El año debe contener números únicamente </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1263987398853579433" datatype="html">
         <source>Medio </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -276,7 +283,7 @@
         <source>Selecciona el medio del álbum</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -287,7 +294,7 @@
         <source> Debe seleccionar el medio del álbum </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">75,76</context>
+          <context context-type="linenumber">78,79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -298,7 +305,7 @@
         <source>Descripción </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">87</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -309,7 +316,7 @@
         <source>Descripción del álbum</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -320,7 +327,7 @@
         <source> Debe ingresar una descripción para el álbum </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">93,94</context>
+          <context context-type="linenumber">96,97</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -331,7 +338,7 @@
         <source> La descripción del álbum debe tener por lo menos un carácter </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">96,97</context>
+          <context context-type="linenumber">99,100</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -342,7 +349,7 @@
         <source> La descripción del álbum no debe superar los 512 carácteres </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-edit/album-edit.component.html</context>
@@ -353,7 +360,7 @@
         <source>Crear</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-create/album-create.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">113</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/cancion/cancion-create/cancion-create.component.html</context>
@@ -503,7 +510,7 @@
         <source> Aún no tienes álbumes agregados, porfavor agrega uno para continuar </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/album/album-list/album-list.component.html</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1311742845758996991" datatype="html">
@@ -810,7 +817,7 @@
         <source> Aún no tienes canciones agregadas, porfavor agrega una para continuar </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/cancion/cancion-list/cancion-list.component.html</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6315415685363337781" datatype="html">

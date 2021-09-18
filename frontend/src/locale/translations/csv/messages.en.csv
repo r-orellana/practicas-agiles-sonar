@@ -109,3 +109,4 @@
 "4987442121244905091","Debe ingresar un comentario para la canción","You must enter a comment for the song"
 "2394834208431737977","El comentario de la canción debe tener por lo menos 5 carácteres","The song comment must have at least 5 characters"
 "1304356394455209005","El comentario de la canción no debe superar los 512 carácteres","The song comment must not exceed 512 characters"
+"5854016398288075017","El año debe contener números únicamente","This field must contain numbers only"

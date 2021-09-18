@@ -49,7 +49,7 @@ export class AlbumCreateComponent implements OnInit {
       this.token = this.router.snapshot.params.userToken
       this.albumForm = this.formBuilder.group({
         titulo: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(128)]],
-        anio: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+        anio: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
         descripcion: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(512)]],
         medio: ["", [Validators.required]]
       })
