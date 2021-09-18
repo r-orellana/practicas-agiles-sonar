@@ -14,10 +14,12 @@ module.exports = (shipit) => {
     staging: {
       servers: "ubuntu@staging.javoweb.io",
       branch: "main",
+      envConfig: "staging",
     },
     sandbox: {
       servers: "ubuntu@sandbox.javoweb.io",
       branch: branch.sync(),
+      envConfig: "sandbox",
     },
   });
 
@@ -37,7 +39,7 @@ module.exports = (shipit) => {
     await shipit.remote("npm install production", {
       cwd: `${shipit.releasePath}/frontend`,
     });
-    await shipit.remote("NODE_ENV=production npm run build -- --localize", {
+    await shipit.remote(`npm run build -- --configuration=${shipit.config.envConfig}`, {
       cwd: `${shipit.releasePath}/frontend`,
     });
   });
