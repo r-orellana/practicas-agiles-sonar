@@ -362,7 +362,6 @@ def test_usuario_sin_cancion_compartida(client):
     data_all = json.loads(response_all.get_data(as_text=True))
 
     # Assert
-    # Assert
     assert post_response.status_code == 200
     assert post_data["titulo"] == cancion1_data["titulo"]
 
@@ -422,6 +421,43 @@ def test_comentar_album(client):
     assert data["contenido"] == contenido
 
 
+def test_comentar_hilo_album(client):
+    # Arrange
+    user1 = Usuario(**user1_data)
+    album1 = Album(**album1_data)
+    user1.albumes.append(album1)
+    db.session.add(user1)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    contenido = "Comentario"
+    contenido2 = "Comentario2"
+
+    # Act
+    response = client.post(
+        "/album/1/comentario", headers=headers, json={"contenido": contenido}
+    )
+    data = json.loads(response.get_data(as_text=True))
+    response2 = client.post(
+        "/album/1/comentario",
+        headers=headers,
+        json={"contenido": contenido2, "parent": 1},
+    )
+    data2 = json.loads(response2.get_data(as_text=True))
+
+    # Assert
+    assert response.status_code == 200
+    assert data["id"] == 1
+    assert data["contenido"] == contenido
+    assert data["parent"] is None
+    assert response2.status_code == 200
+    assert data2["id"] == 2
+    assert data2["contenido"] == contenido2
+    assert data2["parent"] == 1
+
+
 def test_comentar_cancion(client):
     # Arrange
     user1 = Usuario(**user1_data)
@@ -444,3 +480,40 @@ def test_comentar_cancion(client):
     assert response.status_code == 200
     assert data["id"] == 1
     assert data["contenido"] == contenido
+
+
+def test_comentar_hilo_cancion(client):
+    # Arrange
+    user1 = Usuario(**user1_data)
+    cancion1 = Cancion(**cancion1_data)
+    user1.canciones.append(cancion1)
+    db.session.add(user1)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    contenido = "Comentario"
+    contenido2 = "Comentario2"
+
+    # Act
+    response = client.post(
+        "/cancion/1/comentario", headers=headers, json={"contenido": contenido}
+    )
+    data = json.loads(response.get_data(as_text=True))
+    response2 = client.post(
+        "/cancion/1/comentario",
+        headers=headers,
+        json={"contenido": contenido2, "parent": 1},
+    )
+    data2 = json.loads(response2.get_data(as_text=True))
+
+    # Assert
+    assert response.status_code == 200
+    assert data["id"] == 1
+    assert data["contenido"] == contenido
+    assert data["parent"] is None
+    assert response2.status_code == 200
+    assert data2["id"] == 2
+    assert data2["contenido"] == contenido2
+    assert data2["parent"] == 1

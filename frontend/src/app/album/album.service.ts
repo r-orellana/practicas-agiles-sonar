@@ -71,11 +71,11 @@ export class AlbumService {
     return this.http.post<Album>(`${this.backUrl}/usuario/${usuarioId}/album-compartido/${albumId}`,[],{headers: headers})
   }
 
-  comentarAlbum(albumId: number, comentario: string, token: string): Observable<Album>{
+  comentarAlbum(albumId: number, comentario: string, token: string, parent?: number): Observable<Album>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post<Album>(`${this.backUrl}/album/${albumId}/comentario`,{"contenido": comentario},{headers: headers})
+    return this.http.post<Album>(`${this.backUrl}/album/${albumId}/comentario`,{contenido: comentario, parent},{headers: headers})
   }
 
 }

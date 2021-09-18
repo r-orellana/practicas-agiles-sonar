@@ -272,10 +272,16 @@ class VistaComentarioAlbum(Resource):
         nuevo_comentario_album = ComentarioAlbum(
             usuarioId=propietario.id,
             albumId=id_album,
-            contenido=request.json["contenido"],
+            contenido=request.json.get("contenido"),
         )
 
         album.comentarios.append(nuevo_comentario_album)
+
+        parent_id = request.json.get("parent")
+
+        if parent_id:
+            parent = ComentarioAlbum.query.get_or_404(parent_id)
+            parent.children.append(nuevo_comentario_album)
 
         db.session.commit()
         return comentaAlbum_schema.dump(nuevo_comentario_album)
@@ -296,10 +302,16 @@ class VistaComentarioCancion(Resource):
         nuevo_comentario_cancion = ComentarioCancion(
             usuarioId=propietario.id,
             cancionId=id_cancion,
-            contenido=request.json["contenido"],
+            contenido=request.json.get("contenido"),
         )
 
         cancion.comentarios.append(nuevo_comentario_cancion)
+
+        parent_id = request.json.get("parent")
+
+        if parent_id:
+            parent = ComentarioCancion.query.get_or_404(parent_id)
+            parent.children.append(nuevo_comentario_cancion)
 
         db.session.commit()
         return comentaAlbum_schema.dump(nuevo_comentario_cancion)
