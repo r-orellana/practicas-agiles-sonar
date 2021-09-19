@@ -1,3 +1,5 @@
+from typing import List
+
 from flask import request
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from flask_restful import Resource
@@ -204,7 +206,6 @@ class VistaAlbumCompartidoUsuario(Resource):
     @jwt_required()
     def post(self, id_usuario, id_album):
         id_propietario = get_jwt_identity()
-        print(id_propietario)
         propietario = Usuario.query.get_or_404(id_propietario)
         albumes = propietario.albumes
         if not any([id_album == album.id for album in albumes]):
@@ -236,7 +237,6 @@ class VistaCancionCompartidaUsuario(Resource):
     @jwt_required()
     def post(self, id_usuario, id_cancion):
         id_propietario = get_jwt_identity()
-        print(id_propietario)
         propietario = Usuario.query.get_or_404(id_propietario)
         canciones = propietario.canciones
         if not any([id_cancion == cancion.id for cancion in canciones]):
@@ -255,6 +255,23 @@ class VistaCancionCompartidaUsuario(Resource):
             return "Cancion no esta compartido con el usuario", 403
         cancion = Cancion.query.get_or_404(id_cancion)
         return cancion_schema.dump(cancion)
+
+
+# Util functions for getting comment
+def get_response(comentario, schema_dump):
+    squema = schema_dump.dump(comentario)
+    children = []
+    get_children_list(comentario.children, children, schema_dump)
+    squema["children"] = children
+    return squema
+
+
+def get_children_list(
+    children: List[ComentarioAlbum], children_list: List, schema_dump
+):
+    for child in children:
+        children_list.insert(0, schema_dump.dump(child))
+        get_children_list(child.children, children_list, schema_dump)
 
 
 class VistaComentarioAlbum(Resource):
@@ -286,6 +303,17 @@ class VistaComentarioAlbum(Resource):
         db.session.commit()
         return comentaAlbum_schema.dump(nuevo_comentario_album)
 
+    @jwt_required()
+    def get(self, id_album):
+        album = Album.query.get_or_404(id_album)
+
+        first_level = ComentarioAlbum.query.filter(
+            ComentarioAlbum.album == album, ComentarioAlbum.parent == None  # noqa: E711
+        ).all()
+        return [
+            get_response(comentario, comentaAlbum_schema) for comentario in first_level
+        ]
+
 
 class VistaComentarioCancion(Resource):
     @jwt_required()
@@ -315,3 +343,16 @@ class VistaComentarioCancion(Resource):
 
         db.session.commit()
         return comentaAlbum_schema.dump(nuevo_comentario_cancion)
+
+    @jwt_required()
+    def get(self, id_cancion):
+        cancion = Cancion.query.get_or_404(id_cancion)
+
+        first_level = ComentarioCancion.query.filter(
+            ComentarioCancion.cancion == cancion,
+            ComentarioCancion.parent == None,  # noqa: E711
+        ).all()
+        return [
+            get_response(comentario, comentaCancion_schema)
+            for comentario in first_level
+        ]

@@ -1,6 +1,13 @@
 from flask import json
 
-from backend.modelos.modelos import Album, Cancion, Usuario, db
+from backend.modelos.modelos import (
+    Album,
+    Cancion,
+    ComentarioAlbum,
+    ComentarioCancion,
+    Usuario,
+    db,
+)
 
 # ------- Fixture Data -------
 user1_data = {"nombre": "a@a", "contrasena": "1234"}
@@ -14,6 +21,53 @@ album1_data = {"titulo": "A1", "anio": 1995, "descripcion": "D1", "medio": "DISC
 album2_data = {"titulo": "A2", "anio": 1996, "descripcion": "D2", "medio": "CASETE"}
 album3_data = {"titulo": "A3", "anio": 1997, "descripcion": "D3", "medio": "CD"}
 album4_data = {"titulo": "A4", "anio": 1998, "descripcion": "D4", "medio": "DISCO"}
+comentario_album1_data = {
+    "albumId": 1,
+    "parentId": None,
+    "contenido": "COMENTAR ALBUM 1 USER 1",
+    "usuarioId": 1,
+    "id": 1,
+}
+
+comentario_album2_data = {
+    "albumId": 1,
+    "parentId": 1,
+    "contenido": "COMENTAR ALBUM 1 COMMENT 1 USER 1",
+    "usuarioId": 1,
+    "id": 2,
+}
+
+comentario_album3_data = {
+    "albumId": 1,
+    "parentId": 2,
+    "contenido": "COMENTAR ALBUM 1 COMMENT 2 USER 1",
+    "usuarioId": 1,
+    "id": 3,
+}
+
+comentario_cancion1_data = {
+    "cancionId": 1,
+    "parentId": None,
+    "contenido": "COMENTAR cancion 1 USER 1",
+    "usuarioId": 1,
+    "id": 1,
+}
+
+comentario_cancion2_data = {
+    "cancionId": 1,
+    "parentId": 1,
+    "contenido": "COMENTAR cancion 1 COMMENT 1 USER 1",
+    "usuarioId": 1,
+    "id": 2,
+}
+
+comentario_cancion3_data = {
+    "cancionId": 1,
+    "parentId": 2,
+    "contenido": "COMENTAR cancion 1 COMMENT 2 USER 1",
+    "usuarioId": 1,
+    "id": 3,
+}
 
 
 # ------- Tests --------
@@ -517,3 +571,233 @@ def test_comentar_hilo_cancion(client):
     assert data2["id"] == 2
     assert data2["contenido"] == contenido2
     assert data2["parent"] == 1
+
+
+def test_listar_comentarios_album(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    album = Album(**album1_data)
+
+    comentario = ComentarioAlbum(**comentario_album1_data)
+    album.comentarios.append(comentario)
+
+    user.albumes.append(album)
+    db.session.add(album)
+
+    db.session.add(user)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/album/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+    # Assert
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario.id
+    assert data[0]["usuario"] == comentario.usuario.id
+    assert data[0]["contenido"] == comentario.contenido
+
+
+def test_listar_comentarios_album_hijos(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    album = Album(**album1_data)
+    comentario_album = ComentarioAlbum(**comentario_album1_data)
+    comentario_comentario = ComentarioAlbum(**comentario_album2_data)
+
+    user.albumes.append(album)
+
+    album.comentarios.append(comentario_album)
+
+    db.session.add(user)
+    db.session.commit()
+
+    comentario_album.children.append(comentario_comentario)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/album/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert first level
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario_album.id
+    assert data[0]["usuario"] == comentario_album.usuario.id
+    assert data[0]["contenido"] == comentario_album.contenido
+
+    # Assert second level
+    assert response.status_code == 200
+    assert data[0]["children"][0]["id"] == comentario_comentario.id
+    assert data[0]["children"][0]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
+
+
+def test_listar_comentarios_album_hijos_hijos(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    album = Album(**album1_data)
+    comentario_album = ComentarioAlbum(**comentario_album1_data)
+    comentario_comentario = ComentarioAlbum(**comentario_album2_data)
+    comentario_comentario_comentario = ComentarioAlbum(**comentario_album3_data)
+
+    user.albumes.append(album)
+
+    album.comentarios.append(comentario_album)
+
+    db.session.add(user)
+    db.session.commit()
+
+    comentario_album.children.append(comentario_comentario)
+    db.session.commit()
+
+    comentario_comentario.children.append(comentario_comentario_comentario)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/album/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert first level
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario_album.id
+    assert data[0]["usuario"] == comentario_album.usuario.id
+    assert data[0]["contenido"] == comentario_album.contenido
+
+    # Assert second level
+    assert response.status_code == 200
+    assert data[0]["children"][1]["id"] == comentario_comentario.id
+    assert data[0]["children"][1]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
+
+    # Assert third level
+    assert response.status_code == 200
+    assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
+    assert (
+        data[0]["children"][0]["usuario"] == comentario_comentario_comentario.usuario.id
+    )
+    assert data[0]["children"][0]["contenido"]
+
+
+def test_listar_comentarios_cancion(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    cancion = Cancion(**cancion1_data)
+
+    comentario = ComentarioCancion(**comentario_cancion1_data)
+    cancion.comentarios.append(comentario)
+
+    user.canciones.append(cancion)
+    db.session.add(cancion)
+
+    db.session.add(user)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/cancion/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario.id
+    assert data[0]["usuario"] == comentario.usuario.id
+    assert data[0]["contenido"] == comentario.contenido
+
+
+def test_listar_comentarios_cancion_hijos(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    cancion = Cancion(**cancion1_data)
+    comentario_cancion = ComentarioCancion(**comentario_cancion1_data)
+    comentario_comentario = ComentarioCancion(**comentario_cancion2_data)
+
+    user.canciones.append(cancion)
+
+    cancion.comentarios.append(comentario_cancion)
+
+    db.session.add(user)
+    db.session.commit()
+
+    comentario_cancion.children.append(comentario_comentario)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/cancion/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert first level
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario_cancion.id
+    assert data[0]["usuario"] == comentario_cancion.usuario.id
+    assert data[0]["contenido"] == comentario_cancion.contenido
+
+    # Assert second level
+    assert response.status_code == 200
+    assert data[0]["children"][0]["id"] == comentario_comentario.id
+    assert data[0]["children"][0]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
+
+
+def test_listar_comentarios_cancion_hijos_hijos(client):
+    # Arrange
+    user = Usuario(**user1_data)
+    cancion = Cancion(**cancion1_data)
+    comentario_cancion = ComentarioCancion(**comentario_cancion1_data)
+    comentario_comentario = ComentarioCancion(**comentario_cancion2_data)
+    comentario_comentario_comentario = ComentarioCancion(**comentario_cancion3_data)
+
+    user.canciones.append(cancion)
+
+    cancion.comentarios.append(comentario_cancion)
+
+    db.session.add(user)
+    db.session.commit()
+
+    comentario_cancion.children.append(comentario_comentario)
+    db.session.commit()
+
+    comentario_comentario.children.append(comentario_comentario_comentario)
+    db.session.commit()
+
+    token = client.post("/logIn", json=user1_data, follow_redirects=True).json["token"]
+    headers = {"Authorization": "Bearer {}".format(token)}
+
+    # Act
+    response = client.get("/cancion/1/comentario", headers=headers)
+    data = json.loads(response.get_data(as_text=True))
+
+    # Assert first level
+    assert response.status_code == 200
+    assert data[0]["id"] == comentario_cancion.id
+    assert data[0]["usuario"] == comentario_cancion.usuario.id
+    assert data[0]["contenido"] == comentario_cancion.contenido
+
+    # Assert second level
+    assert response.status_code == 200
+    assert data[0]["children"][1]["id"] == comentario_comentario.id
+    assert data[0]["children"][1]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
+
+    # Assert third level
+    assert response.status_code == 200
+    assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
+    assert (
+        data[0]["children"][0]["usuario"] == comentario_comentario_comentario.usuario.id
+    )
+    assert (
+        data[0]["children"][0]["contenido"]
+        == comentario_comentario_comentario.contenido
+    )
