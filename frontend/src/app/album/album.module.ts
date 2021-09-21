@@ -9,12 +9,13 @@ import { AppHeaderModule } from '../app-header/app-header.module';
 import { AlbumJoinCancionComponent } from './album-join-cancion/album-join-cancion.component';
 import { AlbumShareComponent } from './album-share/album-share.component';
 import { AlbumCommentComponent } from './album-comment/album-comment.component';
+import { ComentarioModule } from '../comentario/comentario.module';
 
 
 @NgModule({
   declarations: [AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent,AlbumCommentComponent],
   imports: [
-    CommonModule, ReactiveFormsModule, AppHeaderModule
+    CommonModule, ReactiveFormsModule, AppHeaderModule, ComentarioModule
   ],
   exports:[AlbumListComponent, AlbumDetailComponent, AlbumCreateComponent, AlbumEditComponent, AlbumJoinCancionComponent,AlbumShareComponent,AlbumCommentComponent]
 })

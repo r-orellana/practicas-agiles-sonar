@@ -263,6 +263,7 @@ def get_response(comentario, schema_dump):
     children = []
     get_children_list(comentario.children, children, schema_dump)
     squema["children"] = children
+    squema["usuario"] = usuario_schema.dump(comentario.usuario)
     return squema
 
 
@@ -271,6 +272,7 @@ def get_children_list(
 ):
     for child in children:
         children_list.insert(0, schema_dump.dump(child))
+        children_list[0]["usuario"] = usuario_schema.dump(child.usuario)
         get_children_list(child.children, children_list, schema_dump)
 
 

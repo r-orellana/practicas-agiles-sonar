@@ -15,6 +15,7 @@ import { AlbumJoinCancionComponent } from './album/album-join-cancion/album-join
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ComentarioListComponent } from './comentario/comentario-list/comentario-list.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,7 @@ const routes: Routes = [
     path: 'canciones/comment/:cancionId/:userId/:userToken',
     component: CancionCommentComponent,
   },
+ 
 
   {
     path: 'acerca-de-nosotros',

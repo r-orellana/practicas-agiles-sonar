@@ -13,6 +13,7 @@ import { CancionModule } from './cancion/cancion.module';
 import { FooterComponent } from './footer/footer.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ComentarioModule } from './comentario/comentario.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

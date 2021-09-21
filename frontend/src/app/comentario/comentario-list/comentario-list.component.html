@@ -1,0 +1,73 @@
+<div class="w-100 d-flex justify-content-end">
+    <div
+    *ngIf="comentariosCancion.length === 0"
+    class="col-lg-7 col-md-12"
+    style="height: 30vh; overflow-y: scroll;"
+  >
+    <h5>Comentarios</h5>
+    <p class="text-primary text-center" *ngIf="comentariosAlbum.length === 0">Aún no existen comentarios, porfavor agrega uno para continuar</p>
+    <ul
+      class="list-unstyled list-group"
+      *ngFor="let comentario of comentariosAlbum"
+    >
+      <li class="list-group-item border-1">
+        <div>
+          Comentario por:
+          {{ comentario.usuario.nombre }}
+          <br />
+          <strong>{{ comentario.contenido }}</strong>
+        </div>
+  
+        <div>
+          <ul
+            class="list-group"
+            *ngFor="let child of comentario.children"
+          >
+            <li class="list-group-item">
+              Comentario por:
+              {{ child.usuario.nombre }}
+              <br />
+              <strong>{{ child.contenido }}</strong>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    *ngIf="comentariosCancion.length > 0"
+    class="col-lg-7 col-md-12"
+    style="height: 30vh; overflow-y: scroll;"
+  >
+    <h5>Comentarios</h5>
+    <p class="text-primary text-center" *ngIf="comentariosCancion.length === 0">Aún no existen comentarios, porfavor agrega uno para continuar</p>
+    <ul
+      class="list-unstyled list-group"
+      *ngFor="let comentario of comentariosCancion"
+    >
+      <li class="list-group-item border-1">
+        <div>
+          Comentario por:
+          {{ comentario.usuario.nombre }}
+          <br />
+          <strong>{{ comentario.contenido }}</strong>
+        </div>
+  
+        <div>
+          <ul
+            class="list-group"
+            *ngFor="let child of comentario.children"
+          >
+            <li class="list-group-item">
+              Comentario por:
+              {{ child.usuario.nombre }}
+              <br />
+              <strong>{{ child.contenido }}</strong>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+</div>

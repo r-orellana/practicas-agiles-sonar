@@ -596,7 +596,7 @@ def test_listar_comentarios_album(client):
     # Assert
     assert response.status_code == 200
     assert data[0]["id"] == comentario.id
-    assert data[0]["usuario"] == comentario.usuario.id
+    assert data[0]["usuario"]["id"] == comentario.usuario.id
     assert data[0]["contenido"] == comentario.contenido
 
 
@@ -627,13 +627,13 @@ def test_listar_comentarios_album_hijos(client):
     # Assert first level
     assert response.status_code == 200
     assert data[0]["id"] == comentario_album.id
-    assert data[0]["usuario"] == comentario_album.usuario.id
+    assert data[0]["usuario"]["id"] == comentario_album.usuario.id
     assert data[0]["contenido"] == comentario_album.contenido
 
     # Assert second level
     assert response.status_code == 200
     assert data[0]["children"][0]["id"] == comentario_comentario.id
-    assert data[0]["children"][0]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["usuario"]["id"] == comentario_comentario.usuario.id
     assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
 
 
@@ -668,20 +668,21 @@ def test_listar_comentarios_album_hijos_hijos(client):
     # Assert first level
     assert response.status_code == 200
     assert data[0]["id"] == comentario_album.id
-    assert data[0]["usuario"] == comentario_album.usuario.id
+    assert data[0]["usuario"]["id"] == comentario_album.usuario.id
     assert data[0]["contenido"] == comentario_album.contenido
 
     # Assert second level
     assert response.status_code == 200
     assert data[0]["children"][1]["id"] == comentario_comentario.id
-    assert data[0]["children"][1]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][1]["usuario"]["id"] == comentario_comentario.usuario.id
     assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
 
     # Assert third level
     assert response.status_code == 200
     assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
     assert (
-        data[0]["children"][0]["usuario"] == comentario_comentario_comentario.usuario.id
+        data[0]["children"][0]["usuario"]["id"]
+        == comentario_comentario_comentario.usuario.id
     )
     assert data[0]["children"][0]["contenido"]
 
@@ -710,7 +711,7 @@ def test_listar_comentarios_cancion(client):
     # Assert
     assert response.status_code == 200
     assert data[0]["id"] == comentario.id
-    assert data[0]["usuario"] == comentario.usuario.id
+    assert data[0]["usuario"]["id"] == comentario.usuario.id
     assert data[0]["contenido"] == comentario.contenido
 
 
@@ -741,13 +742,13 @@ def test_listar_comentarios_cancion_hijos(client):
     # Assert first level
     assert response.status_code == 200
     assert data[0]["id"] == comentario_cancion.id
-    assert data[0]["usuario"] == comentario_cancion.usuario.id
+    assert data[0]["usuario"]["id"] == comentario_cancion.usuario.id
     assert data[0]["contenido"] == comentario_cancion.contenido
 
     # Assert second level
     assert response.status_code == 200
     assert data[0]["children"][0]["id"] == comentario_comentario.id
-    assert data[0]["children"][0]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["usuario"]["id"] == comentario_comentario.usuario.id
     assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
 
 
@@ -782,20 +783,21 @@ def test_listar_comentarios_cancion_hijos_hijos(client):
     # Assert first level
     assert response.status_code == 200
     assert data[0]["id"] == comentario_cancion.id
-    assert data[0]["usuario"] == comentario_cancion.usuario.id
+    assert data[0]["usuario"]["id"] == comentario_cancion.usuario.id
     assert data[0]["contenido"] == comentario_cancion.contenido
 
     # Assert second level
     assert response.status_code == 200
     assert data[0]["children"][1]["id"] == comentario_comentario.id
-    assert data[0]["children"][1]["usuario"] == comentario_comentario.usuario.id
+    assert data[0]["children"][1]["usuario"]["id"] == comentario_comentario.usuario.id
     assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
 
     # Assert third level
     assert response.status_code == 200
     assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
     assert (
-        data[0]["children"][0]["usuario"] == comentario_comentario_comentario.usuario.id
+        data[0]["children"][0]["usuario"]["id"]
+        == comentario_comentario_comentario.usuario.id
     )
     assert (
         data[0]["children"][0]["contenido"]
