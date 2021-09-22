@@ -1,6 +1,15 @@
 import { Usuario } from "../usuario/usuario";
 
-export class ComentarioAlbum {
+
+export interface IComentario {
+  id: string;
+  parent: number;
+  children: Array<IComentario>;
+  contenido: string;
+  usuario: Usuario;
+}
+
+export class ComentarioAlbum implements IComentario {
     id: string;
     album: number;
     usuario: Usuario;
@@ -25,7 +34,7 @@ export class ComentarioAlbum {
     }
 }
 
-export class ComentarioCancion {
+export class ComentarioCancion implements IComentario {
     id: string;
     cancion: number;
     usuario: Usuario;

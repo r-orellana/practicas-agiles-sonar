@@ -1,73 +1,52 @@
 <div class="w-100 d-flex justify-content-end">
     <div
-    *ngIf="comentariosCancion.length === 0"
-    class="col-lg-7 col-md-12"
-    style="height: 30vh; overflow-y: scroll;"
-  >
-    <h5>Comentarios</h5>
-    <p class="text-primary text-center" *ngIf="comentariosAlbum.length === 0">Aún no existen comentarios, porfavor agrega uno para continuar</p>
-    <ul
-      class="list-unstyled list-group"
-      *ngFor="let comentario of comentariosAlbum"
+      *ngIf="comentarios.length > 0"
+      class="col-lg-8 col-md-12"
+      style="height: 30vh; overflow-y: scroll;"
     >
-      <li class="list-group-item border-1">
-        <div>
-          Comentario por:
-          {{ comentario.usuario.nombre }}
-          <br />
-          <strong>{{ comentario.contenido }}</strong>
-        </div>
-  
-        <div>
-          <ul
-            class="list-group"
-            *ngFor="let child of comentario.children"
-          >
-            <li class="list-group-item">
-              Comentario por:
-              {{ child.usuario.nombre }}
-              <br />
-              <strong>{{ child.contenido }}</strong>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+      <h5>Comentarios</h5>
+      <p class="text-primary text-center" *ngIf="comentarios.length === 0">Aún no existen comentarios, porfavor agrega uno para continuar</p>
+      <ul
+        class="list-unstyled list-group"
+        *ngFor="let comentario of comentarios"
+      >
+        <li class="list-group-item border-1" style="margin-top:10px; ">
+          <div>
+            Comentario por:
+                <strong>{{ comentario.usuario.nombre }}</strong>
+                <br />
+                <table style="width: 100%">
+                  <tr>
+                    <td style="width: 90%;">
+                      <strong>{{ comentario.contenido }}</strong>
+                    </td>
+                    <td style="width: 10%;text-align: right;">
+                      <button type="button"  class="btn btn-outline-info me-1 me-2" (click)="goToAnswerComment(comentario)" title="Responder"><i class="bi bi-chat-text"></i></button>
+                    </td>
+                  </tr>
+                </table>
+          </div>
+
+          <div >
+            <ul class="list-group"  >
+              <li  *ngFor="let child of comentario.children" class="list-group-item" >
+                Comentario por:
+                <strong>{{ child.usuario.nombre }}</strong>
+                <br />
+                <table style="width: 100%">
+                  <tr>
+                    <td style="width: 90%;">
+                      <strong>{{ child.contenido }}</strong>
+                    </td>
+                    <td style="width: 10%;text-align: right;">
+                      <button type="button" class="btn btn-outline-info me-1 me-2" (click)="goToAnswerComment(child)" title="Responder"><i class="bi bi-chat-text"></i></button>
+                    </td>
+                  </tr>
+                </table>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
   </div>
-  <div
-    *ngIf="comentariosCancion.length > 0"
-    class="col-lg-7 col-md-12"
-    style="height: 30vh; overflow-y: scroll;"
-  >
-    <h5>Comentarios</h5>
-    <p class="text-primary text-center" *ngIf="comentariosCancion.length === 0">Aún no existen comentarios, porfavor agrega uno para continuar</p>
-    <ul
-      class="list-unstyled list-group"
-      *ngFor="let comentario of comentariosCancion"
-    >
-      <li class="list-group-item border-1">
-        <div>
-          Comentario por:
-          {{ comentario.usuario.nombre }}
-          <br />
-          <strong>{{ comentario.contenido }}</strong>
-        </div>
-  
-        <div>
-          <ul
-            class="list-group"
-            *ngFor="let child of comentario.children"
-          >
-            <li class="list-group-item">
-              Comentario por:
-              {{ child.usuario.nombre }}
-              <br />
-              <strong>{{ child.contenido }}</strong>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
-  
 </div>

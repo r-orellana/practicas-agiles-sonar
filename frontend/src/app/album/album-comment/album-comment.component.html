@@ -1,12 +1,29 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12">
-      <div class="card mx-3 my-5">
+      <div class="card mx-3 my-5" >
         <div class="row">
-          <div class="col-12 text-center">
+          <div class="col-12 text-center" *ngIf="this.parentId < 1">
             <p i18n class="mt-5 mb-2 fs-3 fw-bold">Comentar Álbum</p>
           </div>
+          <div class="col-12 text-center" *ngIf="this.parentId>0">
+            <p i18n class="mt-5 mb-2 fs-3 fw-bold">Responder Comentario</p>
+          </div>
         </div>
+
+        <div class="row list-group-item" *ngIf="this.parentId>0">
+              Comentario por:
+              <strong>{{ this.parentUsuario }}</strong>
+              <br />
+              <table style="width: 100%">
+                <tr>
+                  <td style="width: 100%;">
+                    <strong>{{ this.parentContenido }}</strong>
+                  </td>
+                </tr>
+              </table>
+        </div>
+
         <form class="mx-5 my-3" [formGroup]="albumForm" (ngSubmit)="comentarAlbum()">
 
           <div class="form-group my-2">
@@ -14,8 +31,11 @@
               <div class="col-2 text-start">
                 <label i18n for="comentario">Comentario </label>
               </div>
-              <div class="col-10">
+              <div class="col-10" *ngIf="this.parentId<1">
                 <textarea class=" form-control" formControlName="comentario" placeholder="Comentario del álbum" i18n-placeholder></textarea>
+              </div>
+              <div class="col-10" *ngIf="this.parentId>0">
+                <textarea class=" form-control" formControlName="comentario" placeholder="Responder al comentario" i18n-placeholder></textarea>
               </div>
             </div>
             <div class="row justify-content-center">

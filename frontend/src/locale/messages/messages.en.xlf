@@ -1094,6 +1094,26 @@
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4736291984651159547" datatype="html">
+        <target>Reply Comment</target>
+        <source>Responder Comentario</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/cancion/cancion-comment/cancion-comment.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7581657845652325417" datatype="html">
+        <target>Reply to comment</target>
+        <source>Responder al comentario</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/album/album-comment/album-comment.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

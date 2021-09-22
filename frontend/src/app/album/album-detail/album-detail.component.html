@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-12 text-center mb-2" >
+    <div class="col-12 text-center mb-2" *ngIf="album!==null">
       <label  class="fs-4 fw-bold"><span i18n>Álbum: </span>{{album?.titulo}} ({{album?.anio}})</label>
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-success ms-3 me-2" (click)="goToEdit()" title="Editar álbum"><i class="bi bi-pencil-square"></i></button>
       <button *ngIf="album && (userId === album.usuario)" type="button" class="btn btn-outline-info me-1 me-2" (click)="goToJoinCancion()" title="Agregar canción" ><i class="bi bi-plus" ></i><i class="bi bi-music-note"></i></button>
@@ -46,12 +46,12 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody *ngIf="album!==null" >
             <tr *ngFor="let cancion of album?.canciones" >
               <ng-container *ngIf="album.canciones.length > 0">
-                <td >{{cancion.titulo}}</td>
-                <td class="text-center">{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
-                <td >{{cancion.interprete}}</td>
+                <td >{{cancion?.titulo}}</td>
+                <td class="text-center">{{cancion?.minutos?.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion?.segundos?.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
+                <td >{{cancion?.interprete}}</td>
               </ng-container>
 
             </tr>

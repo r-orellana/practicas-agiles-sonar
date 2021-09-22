@@ -17,6 +17,9 @@ export class AlbumCommentComponent implements OnInit {
   albumId: number;
   albumTitulo: string;
   albumForm!: FormGroup;
+  parentId: number;
+  parentUsuario: string;
+  parentContenido: string;
 
 
   constructor(
@@ -28,6 +31,14 @@ export class AlbumCommentComponent implements OnInit {
     private routerPath: Router) { }
 
   ngOnInit() {
+
+    this.albumForm = this.formBuilder.group({
+      comentario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(512)]]
+    })
+    this.parentId=0;
+    this.parentContenido="";
+    this.parentUsuario="";
+
     if(!parseInt(this.router.snapshot.params.userId) || this.router.snapshot.params.userToken === " "){
       this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
     }
@@ -36,10 +47,24 @@ export class AlbumCommentComponent implements OnInit {
       .subscribe(album => {
         this.albumId = album.id
         this.albumTitulo = album.titulo
-        this.albumForm = this.formBuilder.group({
-          comentario: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(512)]]
-        })
       })
+
+      this.router.queryParams
+      .subscribe(params => {
+          if (params.parent!==undefined)
+          {
+            let parent=JSON.parse(params.parent);
+
+            this.parentId = parent.id;
+            this.parentUsuario = parent.usuario.nombre;
+            this.parentContenido = parent.contenido;
+
+
+            console.log("Params:"+params.parent);
+          }
+        }
+      );
+
       this.userId = parseInt(this.router.snapshot.params.userId)
       this.token = this.router.snapshot.params.userToken
     }
@@ -52,9 +77,14 @@ export class AlbumCommentComponent implements OnInit {
 
   comentarAlbum(){
 
+    let parentToPass: any = undefined;
+
+    if(this.parentId>0)
+      parentToPass=this.parentId;
+
     let comentario = this.albumForm.get('comentario')?.value
 
-    this.albumService.comentarAlbum(this.albumId,comentario, this.token)
+    this.albumService.comentarAlbum(this.albumId,comentario, this.token,parentToPass)
     .subscribe(album => {
       this.showSuccess(this.albumTitulo)
       this.albumForm.reset()
@@ -84,7 +114,14 @@ export class AlbumCommentComponent implements OnInit {
   }
 
   showSuccess(albumTitulo: String) {
-    this.toastr.success(`El album ${albumTitulo} fue comentado`, "Comentario exitoso");
+    if(this.parentId<1)
+    {
+      this.toastr.success(`El album ${albumTitulo} fue comentado`, "Comentario exitoso");
+    }
+    else
+    {
+      this.toastr.success(`!El comentario ha sido respondido!`, "Respuesta exitosa");
+    }
   }
 
 }

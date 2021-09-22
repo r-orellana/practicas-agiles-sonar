@@ -8282,3 +8282,20 @@ fieldset:disabled .btn {
 .footer {
   height: 6em;
 }
+
+
+.list-group
+{
+  padding-left: 10px;
+}
+.list-group-item
+{
+
+  border-radius: 9px;
+  /* background: #73AD21; */
+  padding: 20px;
+  /* width: 200px; */
+  /* height: 150px; */
+  border: 1px solid #d8cfcf;
+  padding: 5px;
+}

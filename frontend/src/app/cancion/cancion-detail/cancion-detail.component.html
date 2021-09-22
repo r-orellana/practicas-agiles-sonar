@@ -42,9 +42,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let album of cancion?.albumes" >
-            <td >{{album.titulo}}</td>
+            <td >{{album?.titulo}}</td>
             <td class="text-center">{{album.anio}}</td>
-            <td >{{album.medio.llave}}</td>
+            <td >{{album?.medio?.llave}}</td>
           </tr>
         </tbody>
       </table>

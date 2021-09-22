@@ -9,7 +9,7 @@ import { Album } from '../album';
 })
 export class AlbumDetailComponent implements OnInit {
 
-  @Input() album: Album;
+  @Input() album: Album | null;
   @Output() deleteAlbum = new EventEmitter();
 
   userId: number;
@@ -26,23 +26,23 @@ export class AlbumDetailComponent implements OnInit {
   }
 
   goToEdit() {
-    this.routerPath.navigate([`/albumes/edit/${this.album.id}/${this.userId}/${this.token}`])
+    this.routerPath.navigate([`/albumes/edit/${this.album?.id}/${this.userId}/${this.token}`])
   }
 
   goToJoinCancion() {
-    this.routerPath.navigate([`/albumes/join/${this.album.id}/${this.userId}/${this.token}`])
+    this.routerPath.navigate([`/albumes/join/${this.album?.id}/${this.userId}/${this.token}`])
   }
 
   eliminarAlbum() {
-    this.deleteAlbum.emit(this.album.id)
+    this.deleteAlbum.emit(this.album?.id)
   }
 
   goToShareAlbum() {
-    this.routerPath.navigate([`/albumes/share/${this.album.id}/${this.userId}/${this.token}`])
+    this.routerPath.navigate([`/albumes/share/${this.album?.id}/${this.userId}/${this.token}`])
   }
 
   goToCommentAlbum() {
-    this.routerPath.navigate([`/albumes/comment/${this.album.id}/${this.userId}/${this.token}`])
+    this.routerPath.navigate([`/albumes/comment/${this.album?.id}/${this.userId}/${this.token}`])
   }
 
 }

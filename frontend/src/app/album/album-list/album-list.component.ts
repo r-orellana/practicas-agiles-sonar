@@ -56,6 +56,7 @@ export class AlbumListComponent implements OnInit {
       if(albumes.length>0){
         this.isEmpty = false
         this.mergeAlbumList();
+        this.onSelect(this.mostrarAlbumes[0], 0);
       }
     },
     error => {
