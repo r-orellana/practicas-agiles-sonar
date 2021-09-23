@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Album } from '../album';
 import { AlbumService } from '../album.service';
 
 @Component({
@@ -23,12 +22,12 @@ export class AlbumCommentComponent implements OnInit {
 
 
   constructor(
-
     private albumService: AlbumService,
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private toastr: ToastrService,
-    private routerPath: Router) { }
+    private routerPath: Router
+    ) { }
 
   ngOnInit() {
 
@@ -74,7 +73,7 @@ export class AlbumCommentComponent implements OnInit {
 
   comentarAlbum(){
 
-    let parentToPass: any = undefined;
+    let parentToPass: number | undefined = undefined;;
 
     if(this.parentId>0)
       parentToPass=this.parentId;

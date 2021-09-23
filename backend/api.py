@@ -43,8 +43,8 @@ def create_api(app: Flask) -> Api:
         "/usuario/<int:id_usuario>/canciones-compartidas",
     )
     api.add_resource(VistaCancionesUsuario, "/usuario/<int:id_usuario>/canciones")
-    api.add_resource(VistaComentarioAlbum, "/album/<int:id_album>/comentario")
-    api.add_resource(VistaComentarioCancion, "/cancion/<int:id_cancion>/comentario")
+    api.add_resource(VistaComentarioAlbum, "/album/<int:id>/comentario")
+    api.add_resource(VistaComentarioCancion, "/cancion/<int:id>/comentario")
     api.add_resource(VistaLogIn, "/logIn")
     api.add_resource(VistaSignIn, "/signin")
     api.add_resource(VistaUsuario, "/usuarios/<int:id_usuario>")

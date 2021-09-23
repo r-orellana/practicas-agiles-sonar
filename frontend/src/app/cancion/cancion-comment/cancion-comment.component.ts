@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Cancion } from '../cancion';
 import { CancionService } from '../cancion.service';
 
 @Component({
@@ -39,7 +38,6 @@ export class CancionCommentComponent implements OnInit {
     this.parentContenido="";
     this.parentUsuario="";
 
-
     if(!parseInt(this.router.snapshot.params.userId) || this.router.snapshot.params.userToken === " "){
       this.showError("No hemos podido identificarlo, por favor vuelva a iniciar sesión.")
     }
@@ -57,9 +55,8 @@ export class CancionCommentComponent implements OnInit {
             let parent=JSON.parse(params.parent);
 
             this.parentId = parent.id;
-            this.parentUsuario = parent.usuario;
+            this.parentUsuario = parent.usuario.nombre;
             this.parentContenido = parent.contenido;
-
           }
         }
       );
@@ -75,7 +72,6 @@ export class CancionCommentComponent implements OnInit {
   }
 
   comentarCancion(){
-
 
     let parentToPass: number | undefined = undefined;
 

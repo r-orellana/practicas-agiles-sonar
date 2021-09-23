@@ -1,5 +1,3 @@
-from typing import List
-
 from flask import request
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from flask_restful import Resource
@@ -260,101 +258,75 @@ class VistaCancionCompartidaUsuario(Resource):
 # Util functions for getting comment
 def get_response(comentario, schema_dump):
     squema = schema_dump.dump(comentario)
-    children = []
-    get_children_list(comentario.children, children, schema_dump)
-    squema["children"] = children
+    squema["children"] = get_children_list(comentario.children, schema_dump)
     squema["usuario"] = usuario_schema.dump(comentario.usuario)
     return squema
 
 
-def get_children_list(
-    children: List[ComentarioAlbum], children_list: List, schema_dump
-):
-    for child in children:
-        children_list.insert(0, schema_dump.dump(child))
-        children_list[0]["usuario"] = usuario_schema.dump(child.usuario)
-        get_children_list(child.children, children_list, schema_dump)
+def get_children_list(children, schema_dump):
+    children_list = []
+    for child in sorted(children, key=lambda x: x.id):
+        squema = schema_dump.dump(child)
+        squema["usuario"] = usuario_schema.dump(child.usuario)
+        children_list += [squema] + get_children_list(child.children, schema_dump)
+    return children_list
 
 
-class VistaComentarioAlbum(Resource):
+class VistaComentario(Resource):
+    Model = None
+    ComentarioModel = None
+    comentario_schema = None
+
     @jwt_required()
-    def post(self, id_album):
+    def post(self, id):
         id_usuario = get_jwt_identity()
         propietario = Usuario.query.get_or_404(
             id_usuario,
         )
 
-        album = Album.query.get_or_404(
-            id_album,
+        obra = self.Model.query.get_or_404(
+            id,
         )
 
-        nuevo_comentario_album = ComentarioAlbum(
+        nuevo_comentario = self.ComentarioModel(
             usuarioId=propietario.id,
-            albumId=id_album,
+            obraId=id,
             contenido=request.json.get("contenido"),
         )
 
-        album.comentarios.append(nuevo_comentario_album)
+        obra.comentarios.append(nuevo_comentario)
 
         parent_id = request.json.get("parent")
 
         if parent_id:
-            parent = ComentarioAlbum.query.get_or_404(parent_id)
-            parent.children.append(nuevo_comentario_album)
+            parent = self.ComentarioModel.query.get_or_404(parent_id)
+            parent.children.append(nuevo_comentario)
 
         db.session.commit()
-        return comentaAlbum_schema.dump(nuevo_comentario_album)
+        return self.comentario_schema.dump(nuevo_comentario)
 
     @jwt_required()
-    def get(self, id_album):
-        album = Album.query.get_or_404(id_album)
+    def get(self, id):
+        obra = self.Model.query.get_or_404(id)
 
-        first_level = ComentarioAlbum.query.filter(
-            ComentarioAlbum.album == album, ComentarioAlbum.parent == None  # noqa: E711
+        first_level = self.ComentarioModel.query.filter(
+            self.ComentarioModel.obra == obra,
+            self.ComentarioModel.parent == None,  # Noqa: E711
         ).all()
         return [
-            get_response(comentario, comentaAlbum_schema) for comentario in first_level
-        ]
-
-
-class VistaComentarioCancion(Resource):
-    @jwt_required()
-    def post(self, id_cancion):
-        id_usuario = get_jwt_identity()
-        propietario = Usuario.query.get_or_404(
-            id_usuario,
-        )
-
-        cancion = Cancion.query.get_or_404(
-            id_cancion,
-        )
-
-        nuevo_comentario_cancion = ComentarioCancion(
-            usuarioId=propietario.id,
-            cancionId=id_cancion,
-            contenido=request.json.get("contenido"),
-        )
-
-        cancion.comentarios.append(nuevo_comentario_cancion)
-
-        parent_id = request.json.get("parent")
-
-        if parent_id:
-            parent = ComentarioCancion.query.get_or_404(parent_id)
-            parent.children.append(nuevo_comentario_cancion)
-
-        db.session.commit()
-        return comentaAlbum_schema.dump(nuevo_comentario_cancion)
-
-    @jwt_required()
-    def get(self, id_cancion):
-        cancion = Cancion.query.get_or_404(id_cancion)
-
-        first_level = ComentarioCancion.query.filter(
-            ComentarioCancion.cancion == cancion,
-            ComentarioCancion.parent == None,  # noqa: E711
-        ).all()
-        return [
-            get_response(comentario, comentaCancion_schema)
+            get_response(comentario, self.comentario_schema)
             for comentario in first_level
         ]
+
+
+class VistaComentarioAlbum(VistaComentario):
+    Model = Album
+    ComentarioModel = ComentarioAlbum
+    comentario_schema = comentaAlbum_schema
+
+
+class VistaComentarioCancion(VistaComentario):
+
+    Model = Cancion
+    ComentarioModel = ComentarioCancion
+    comentario_schema = comentaCancion_schema

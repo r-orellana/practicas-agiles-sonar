@@ -41,7 +41,7 @@ class Cancion(db.Model):
         secondary="cancion_compartida",
         back_populates="canciones_compartidas",
     )
-    comentarios = db.relationship("ComentarioCancion", back_populates="cancion")
+    comentarios = db.relationship("ComentarioCancion", back_populates="obra")
 
 
 class Medio(enum.Enum):
@@ -64,7 +64,7 @@ class Album(db.Model):
     usuarios_compartidos = db.relationship(
         "Usuario", secondary="album_compartido", back_populates="albumes_compartidos"
     )
-    comentarios = db.relationship("ComentarioAlbum", back_populates="album")
+    comentarios = db.relationship("ComentarioAlbum", back_populates="obra")
 
 
 class Usuario(db.Model):
@@ -87,8 +87,8 @@ class ComentarioAlbum(db.Model):
         db.Integer, db.ForeignKey("comentario_album.id"), nullable=True
     )
     contenido = db.Column(db.String(512))
-    albumId = db.Column(db.Integer, db.ForeignKey("album.id"))
-    album = db.relationship("Album", back_populates="comentarios")
+    obraId = db.Column(db.Integer, db.ForeignKey("album.id"))
+    obra = db.relationship("Album", back_populates="comentarios")
     usuarioId = db.Column(db.Integer, db.ForeignKey("usuario.id"))
     usuario = db.relationship("Usuario")
     children = db.relationship(
@@ -111,8 +111,8 @@ class ComentarioCancion(db.Model):
         db.Integer, db.ForeignKey("comentario_cancion.id"), nullable=True
     )
     contenido = db.Column(db.String(512))
-    cancionId = db.Column(db.Integer, db.ForeignKey("cancion.id"))
-    cancion = db.relationship("Cancion", back_populates="comentarios")
+    obraId = db.Column(db.Integer, db.ForeignKey("cancion.id"))
+    obra = db.relationship("Cancion", back_populates="comentarios")
     usuarioId = db.Column(db.Integer, db.ForeignKey("usuario.id"))
     usuario = db.relationship("Usuario")
     children = db.relationship(

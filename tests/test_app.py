@@ -21,52 +21,25 @@ album1_data = {"titulo": "A1", "anio": 1995, "descripcion": "D1", "medio": "DISC
 album2_data = {"titulo": "A2", "anio": 1996, "descripcion": "D2", "medio": "CASETE"}
 album3_data = {"titulo": "A3", "anio": 1997, "descripcion": "D3", "medio": "CD"}
 album4_data = {"titulo": "A4", "anio": 1998, "descripcion": "D4", "medio": "DISCO"}
-comentario_album1_data = {
-    "albumId": 1,
+comentario1_data = {
+    "obraId": 1,
     "parentId": None,
-    "contenido": "COMENTAR ALBUM 1 USER 1",
+    "contenido": "COMENTAR OBRA 1 USER 1",
     "usuarioId": 1,
-    "id": 1,
 }
 
-comentario_album2_data = {
-    "albumId": 1,
+comentario2_data = {
+    "obraId": 1,
     "parentId": 1,
-    "contenido": "COMENTAR ALBUM 1 COMMENT 1 USER 1",
+    "contenido": "COMENTAR OBRA 1 COMMENT 1 USER 1",
     "usuarioId": 1,
-    "id": 2,
 }
 
-comentario_album3_data = {
-    "albumId": 1,
+comentario3_data = {
+    "obraId": 1,
     "parentId": 2,
-    "contenido": "COMENTAR ALBUM 1 COMMENT 2 USER 1",
+    "contenido": "COMENTAR OBRA 1 COMMENT 2 USER 1",
     "usuarioId": 1,
-    "id": 3,
-}
-
-comentario_cancion1_data = {
-    "cancionId": 1,
-    "parentId": None,
-    "contenido": "COMENTAR cancion 1 USER 1",
-    "usuarioId": 1,
-    "id": 1,
-}
-
-comentario_cancion2_data = {
-    "cancionId": 1,
-    "parentId": 1,
-    "contenido": "COMENTAR cancion 1 COMMENT 1 USER 1",
-    "usuarioId": 1,
-    "id": 2,
-}
-
-comentario_cancion3_data = {
-    "cancionId": 1,
-    "parentId": 2,
-    "contenido": "COMENTAR cancion 1 COMMENT 2 USER 1",
-    "usuarioId": 1,
-    "id": 3,
 }
 
 
@@ -578,7 +551,7 @@ def test_listar_comentarios_album(client):
     user = Usuario(**user1_data)
     album = Album(**album1_data)
 
-    comentario = ComentarioAlbum(**comentario_album1_data)
+    comentario = ComentarioAlbum(**comentario1_data)
     album.comentarios.append(comentario)
 
     user.albumes.append(album)
@@ -604,8 +577,8 @@ def test_listar_comentarios_album_hijos(client):
     # Arrange
     user = Usuario(**user1_data)
     album = Album(**album1_data)
-    comentario_album = ComentarioAlbum(**comentario_album1_data)
-    comentario_comentario = ComentarioAlbum(**comentario_album2_data)
+    comentario_album = ComentarioAlbum(**comentario1_data)
+    comentario_comentario = ComentarioAlbum(**comentario2_data)
 
     user.albumes.append(album)
 
@@ -641,9 +614,9 @@ def test_listar_comentarios_album_hijos_hijos(client):
     # Arrange
     user = Usuario(**user1_data)
     album = Album(**album1_data)
-    comentario_album = ComentarioAlbum(**comentario_album1_data)
-    comentario_comentario = ComentarioAlbum(**comentario_album2_data)
-    comentario_comentario_comentario = ComentarioAlbum(**comentario_album3_data)
+    comentario_album = ComentarioAlbum(**comentario1_data)
+    comentario_comentario = ComentarioAlbum(**comentario2_data)
+    comentario_comentario_comentario = ComentarioAlbum(**comentario3_data)
 
     user.albumes.append(album)
 
@@ -673,18 +646,18 @@ def test_listar_comentarios_album_hijos_hijos(client):
 
     # Assert second level
     assert response.status_code == 200
-    assert data[0]["children"][1]["id"] == comentario_comentario.id
-    assert data[0]["children"][1]["usuario"]["id"] == comentario_comentario.usuario.id
-    assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
+    assert data[0]["children"][0]["id"] == comentario_comentario.id
+    assert data[0]["children"][0]["usuario"]["id"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
 
     # Assert third level
     assert response.status_code == 200
-    assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
+    assert data[0]["children"][1]["id"] == comentario_comentario_comentario.id
     assert (
-        data[0]["children"][0]["usuario"]["id"]
+        data[0]["children"][1]["usuario"]["id"]
         == comentario_comentario_comentario.usuario.id
     )
-    assert data[0]["children"][0]["contenido"]
+    assert data[0]["children"][1]["contenido"]
 
 
 def test_listar_comentarios_cancion(client):
@@ -692,7 +665,7 @@ def test_listar_comentarios_cancion(client):
     user = Usuario(**user1_data)
     cancion = Cancion(**cancion1_data)
 
-    comentario = ComentarioCancion(**comentario_cancion1_data)
+    comentario = ComentarioCancion(**comentario1_data)
     cancion.comentarios.append(comentario)
 
     user.canciones.append(cancion)
@@ -719,8 +692,8 @@ def test_listar_comentarios_cancion_hijos(client):
     # Arrange
     user = Usuario(**user1_data)
     cancion = Cancion(**cancion1_data)
-    comentario_cancion = ComentarioCancion(**comentario_cancion1_data)
-    comentario_comentario = ComentarioCancion(**comentario_cancion2_data)
+    comentario_cancion = ComentarioCancion(**comentario1_data)
+    comentario_comentario = ComentarioCancion(**comentario2_data)
 
     user.canciones.append(cancion)
 
@@ -756,9 +729,9 @@ def test_listar_comentarios_cancion_hijos_hijos(client):
     # Arrange
     user = Usuario(**user1_data)
     cancion = Cancion(**cancion1_data)
-    comentario_cancion = ComentarioCancion(**comentario_cancion1_data)
-    comentario_comentario = ComentarioCancion(**comentario_cancion2_data)
-    comentario_comentario_comentario = ComentarioCancion(**comentario_cancion3_data)
+    comentario_cancion = ComentarioCancion(**comentario1_data)
+    comentario_comentario = ComentarioCancion(**comentario2_data)
+    comentario_comentario_comentario = ComentarioCancion(**comentario3_data)
 
     user.canciones.append(cancion)
 
@@ -782,24 +755,25 @@ def test_listar_comentarios_cancion_hijos_hijos(client):
 
     # Assert first level
     assert response.status_code == 200
+    # assert data == {}
     assert data[0]["id"] == comentario_cancion.id
     assert data[0]["usuario"]["id"] == comentario_cancion.usuario.id
     assert data[0]["contenido"] == comentario_cancion.contenido
 
     # Assert second level
     assert response.status_code == 200
-    assert data[0]["children"][1]["id"] == comentario_comentario.id
-    assert data[0]["children"][1]["usuario"]["id"] == comentario_comentario.usuario.id
-    assert data[0]["children"][1]["contenido"] == comentario_comentario.contenido
+    assert data[0]["children"][0]["id"] == comentario_comentario.id
+    assert data[0]["children"][0]["usuario"]["id"] == comentario_comentario.usuario.id
+    assert data[0]["children"][0]["contenido"] == comentario_comentario.contenido
 
     # Assert third level
     assert response.status_code == 200
-    assert data[0]["children"][0]["id"] == comentario_comentario_comentario.id
+    assert data[0]["children"][1]["id"] == comentario_comentario_comentario.id
     assert (
-        data[0]["children"][0]["usuario"]["id"]
+        data[0]["children"][1]["usuario"]["id"]
         == comentario_comentario_comentario.usuario.id
     )
     assert (
-        data[0]["children"][0]["contenido"]
+        data[0]["children"][1]["contenido"]
         == comentario_comentario_comentario.contenido
     )

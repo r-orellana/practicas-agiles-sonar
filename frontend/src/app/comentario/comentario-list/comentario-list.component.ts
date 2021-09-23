@@ -1,9 +1,14 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ComentarioService } from '../comentario.service';
-import { ComentarioAlbum, ComentarioCancion, IComentario } from '../comentario';
-
+import { Comentario } from '../comentario';
 
 @Component({
   selector: 'app-comentario-list',
@@ -23,8 +28,7 @@ export class ComentarioListComponent implements OnInit, OnChanges {
 
   userId: number;
   token: string;
-  comentarios: Array<IComentario> = [];
-
+  comentarios: Array<Comentario> = [];
 
   ngOnInit(): void {
     this.userId = parseInt(this.router.snapshot.params.userId);
@@ -39,13 +43,12 @@ export class ComentarioListComponent implements OnInit, OnChanges {
 
   loadComments(id: number | null) {
     if (id === null) {
-      return
+      return;
     }
     if (this.pageType === 'album') {
       this.comentarioService.getComentariosAlbum(id, this.token).subscribe(
         (response) => {
           this.comentarios = response;
-
         },
         (error) => {
           if (error.statusText === 'UNAUTHORIZED') {
@@ -95,22 +98,22 @@ export class ComentarioListComponent implements OnInit, OnChanges {
     this.toastr.success(`La canción fue editada`, 'Edición exitosa');
   }
 
-  goToAnswerComment(parent: IComentario)
-  {
-    let toPass: IComentario = {} as IComentario;
-    toPass.id=parent.id;
-    toPass.usuario=parent.usuario;
-    toPass.contenido=parent.contenido;
+  goToAnswerComment(parent: Comentario) {
+    let toPass: Comentario = {} as Comentario;
+    toPass.id = parent.id;
+    toPass.usuario = parent.usuario;
+    toPass.contenido = parent.contenido;
 
-    if (this.pageType=="album")
-    {
-      this.routerPath.navigate([`/albumes/comment/${(parent as ComentarioAlbum).album}/${this.userId}/${this.token}`] , { queryParams: { parent :  JSON.stringify(parent) } })
+    if (this.pageType == 'album') {
+      this.routerPath.navigate(
+        [`/albumes/comment/${parent.obra}/${this.userId}/${this.token}`],
+        { queryParams: { parent: JSON.stringify(parent) } }
+      );
+    } else {
+      this.routerPath.navigate(
+        [`/canciones/comment/${parent.obra}/${this.userId}/${this.token}`],
+        { queryParams: { parent: JSON.stringify(parent) } }
+      );
     }
-    else
-    {
-      this.routerPath.navigate([`/canciones/comment/${(parent as ComentarioCancion).cancion}/${this.userId}/${this.token}`], { queryParams: { parent :  JSON.stringify(parent) } })
-    }
-
   }
-
 }
