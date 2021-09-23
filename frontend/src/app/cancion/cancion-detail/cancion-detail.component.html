@@ -14,7 +14,11 @@
     <div class="col-6">
       <div class="card">
         <div *ngIf="cancion" class="card-body">
-          <p class="my-0"><span i18n class="fw-bold">Duración: </span> <span class="text-capitalize"> {{cancion.minutos.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</span></p>
+          <p class="my-0">
+            <span i18n class="fw-bold">Duración: </span> 
+            <span class="text-capitalize"> {{ formatTimeFunction(cancion?.minutos) }}:{{formatTimeFunction(cancion?.segundos)}}
+            </span>
+          </p>
         </div>
       </div>
     </div>
@@ -43,7 +47,7 @@
         <tbody>
           <tr *ngFor="let album of cancion?.albumes" >
             <td >{{album?.titulo}}</td>
-            <td class="text-center">{{album.anio}}</td>
+            <td class="text-center">{{album?.anio}}</td>
             <td >{{album?.medio?.llave}}</td>
           </tr>
         </tbody>

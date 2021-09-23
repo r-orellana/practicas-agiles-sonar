@@ -28,8 +28,7 @@
                   <i *ngIf="this.userId!==cancion.usuario" class="bi bi-share-fill"></i>
                   {{cancion.titulo}}
                 </td>
-                <td>{{cancion.minutos.toLocaleString('en', { minimumIntegerDigits:
-                  2})}}:{{cancion.segundos.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
+                <td>{{ formatTimeFunction(cancion?.minutos) }}:{{ formatTimeFunction(cancion?.segundos) }}</td>
               </tr>
             </tbody>
           </table>
@@ -43,7 +42,7 @@
       <app-cancion-detail (deleteCancion)="eliminarCancion()" [cancion]="cancionSeleccionada"></app-cancion-detail>
     </div>
     <div class="row">
-      <app-comentario-list [instanceId]="cancionSeleccionada?.id || mostrarCanciones && mostrarCanciones[0].id || null" [pageType]="'song'">
+      <app-comentario-list [instanceId]="cancionSeleccionada?.id || mostrarCanciones && mostrarCanciones[0]?.id || null" [pageType]="'song'">
       </app-comentario-list>
     </div>
   </div>

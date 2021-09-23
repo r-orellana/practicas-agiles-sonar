@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { formatTime } from 'src/utils/formatTime';
 import { Album } from '../album';
 
 @Component({
@@ -14,6 +15,7 @@ export class AlbumDetailComponent implements OnInit {
 
   userId: number;
   token: string;
+  formatTimeFunction: typeof formatTime  = formatTime;
 
   constructor(
     private routerPath: Router,

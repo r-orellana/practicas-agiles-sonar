@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Cancion } from '../cancion';
-import { CancionService } from '../cancion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Cancion } from '../cancion';
+import { CancionService } from '../cancion.service';
+import { formatTime } from 'src/utils/formatTime';
 
 @Component({
   selector: 'app-cancion-list',
@@ -25,6 +26,7 @@ export class CancionListComponent implements OnInit {
   cancionSeleccionada: Cancion;
   indiceSeleccionado: number = 0;
   isEmpty: boolean = true;
+  formatTimeFunction: typeof formatTime = formatTime;
 
   ngOnInit() {
     if (
@@ -67,7 +69,7 @@ export class CancionListComponent implements OnInit {
     this.cancionService.getCancionesCompartidas(this.userId, this.token).subscribe((canciones) => {
       this.cancionesCompartidas = canciones;
       this.mostrarCanciones = canciones;
-      if (this.canciones.length > 0) {
+      if (this.canciones?.length > 0) {
         this.isEmpty = false;
         this.mergeCancionList();
       }

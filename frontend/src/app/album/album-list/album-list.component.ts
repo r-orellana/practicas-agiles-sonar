@@ -60,7 +60,6 @@ export class AlbumListComponent implements OnInit {
       }
     },
     error => {
-      console.log(error)
       if(error.statusText === "UNAUTHORIZED"){
         this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
       }
@@ -84,7 +83,6 @@ export class AlbumListComponent implements OnInit {
       }
     },
     error => {
-      console.log(error)
       if(error.statusText === "UNAUTHORIZED"){
         this.showWarning("Su sesión ha caducado, por favor vuelva a iniciar sesión.")
       }

@@ -60,8 +60,6 @@ export class CancionCommentComponent implements OnInit {
             this.parentUsuario = parent.usuario;
             this.parentContenido = parent.contenido;
 
-
-            console.log("Params:"+params.parent);
           }
         }
       );

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cancion } from '../cancion';
+import { formatTime } from 'src/utils/formatTime';
 
 @Component({
   selector: 'app-cancion-detail',
@@ -14,6 +15,7 @@ export class CancionDetailComponent implements OnInit {
 
   userId: number;
   token: string;
+  formatTimeFunction: typeof formatTime = formatTime;
 
   constructor(
     private router: ActivatedRoute,

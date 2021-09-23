@@ -102,8 +102,6 @@ export class ComentarioListComponent implements OnInit, OnChanges {
     toPass.usuario=parent.usuario;
     toPass.contenido=parent.contenido;
 
-    console.log("To pass:"+JSON.stringify(parent));
-
     if (this.pageType=="album")
     {
       this.routerPath.navigate([`/albumes/comment/${(parent as ComentarioAlbum).album}/${this.userId}/${this.token}`] , { queryParams: { parent :  JSON.stringify(parent) } })

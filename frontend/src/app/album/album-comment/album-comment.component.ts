@@ -58,9 +58,6 @@ export class AlbumCommentComponent implements OnInit {
             this.parentId = parent.id;
             this.parentUsuario = parent.usuario.nombre;
             this.parentContenido = parent.contenido;
-
-
-            console.log("Params:"+params.parent);
           }
         }
       );

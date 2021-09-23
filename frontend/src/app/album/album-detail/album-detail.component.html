@@ -49,9 +49,9 @@
         <tbody *ngIf="album!==null" >
             <tr *ngFor="let cancion of album?.canciones" >
               <ng-container *ngIf="album.canciones.length > 0">
-                <td >{{cancion?.titulo}}</td>
-                <td class="text-center">{{cancion?.minutos?.toLocaleString('en', { minimumIntegerDigits: 2})}}:{{cancion?.segundos?.toLocaleString('en', { minimumIntegerDigits: 2})}}</td>
-                <td >{{cancion?.interprete}}</td>
+                <td >{{cancion.titulo}}</td>
+                <td class="text-center">{{ formatTimeFunction(cancion?.minutos) }}:{{ formatTimeFunction(cancion?.segundos) }}</td>
+                <td >{{cancion.interprete}}</td>
               </ng-container>
 
             </tr>

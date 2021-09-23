@@ -65,7 +65,6 @@ export class AlbumEditComponent implements OnInit {
   }
 
   editarAlbum(newAlbum: Album){
-    console.log(newAlbum)
     this.albumForm.get('anio')?.setValue(parseInt(this.albumForm.get('anio')?.value))
     this.albumService.editarAlbum(this.userId, this.token, this.albumId, newAlbum)
     .subscribe(album => {
