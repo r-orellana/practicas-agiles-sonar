@@ -9,7 +9,7 @@ from backend.modelos.modelos import (
     db,
 )
 
-# ------- Fixture Data ----------
+# ------- Fixture Data -----------
 user1_data = {"nombre": "a@a", "contrasena": "1234"}
 user2_data = {"nombre": "b@b", "contrasena": "12345"}
 user3_data = {"nombre": "c@c", "contrasena": "123456"}
