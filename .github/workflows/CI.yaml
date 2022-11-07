@@ -32,7 +32,7 @@ jobs:
       - name: Run tests
         run: |
           echo "Running tests" && python -m coverage run -m pytest -v
-          echo "Coverage report" && python -m coverage report -m && python -m coverage xml
+          echo "Coverage report" && python -m coverage report -m && python -m backend/coverage xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
